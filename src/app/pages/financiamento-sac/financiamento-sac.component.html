@@ -1,0 +1,87 @@
+<section class="content-header">
+  <h1>
+    Cálculo de Financiamento SAC
+    <small>Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo SAC (Sistema de Amortização
+      Constante)</small>
+  </h1>
+</section>
+<section class="content">
+  <form class="form-horizontal" autocomplete="off" #sacForm="ngForm" id="contaForm"
+    [ngFormOptions]="{ updateOn: 'change' }">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Tabela SAC</h3>
+          </div>
+
+          <div class="form-horizontal">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-3">
+                  Valor do Financiamento:
+                </label>
+                <div class="col-sm-3">
+                  <input currencyMask name="valor" [(ngModel)]="valor"
+                    class="form-control input-sm" [options]="{allowNegative: false }" required/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3">
+                  Taxa(% ao mês):
+                </label>
+                <div class="col-sm-1">
+                  <input currencyMask name="taxa" [(ngModel)]="taxa"
+                   class="form-control input-sm" [options]="{allowNegative: false }"  required/>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3">
+                  Período (Número de meses):
+                </label>
+                <div class="col-sm-1">
+                  <input currencyMask name="periodo"  [(ngModel)]="periodo"
+                   class="form-control input-sm" [options]="{allowNegative: false, precision: 0 }" required  min="1" max="360" maxlength="3"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button" [disabled]="sacForm.invalid" (click)="calcular()">Calcular</button>
+                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button" [disabled]="sacForm.invalid" (click)="limparFormulario()">Limpar</button>
+                </div>
+              </div>
+              <div class="row">
+               <!-- <span>{{sacForm.valid | json}}</span>
+               <span>{{sacForm.value | json}}</span> -->
+              </div>
+              <div class="box-body no-padding">
+                <div class='table-responsive'>
+                  <table class="table table-striped">
+                    <tbody>
+                      <tr>
+                        <th>Parcela N</th>
+                        <th>Prestação</th>
+                        <th>Juros</th>
+                        <th>Amortização</th>
+                        <th>Saldo Devedor</th>
+                      </tr>
+                      <tr *ngFor="let parcela of parcelas">
+                        <td><span *ngIf="parcela.id === undefined">Total</span>{{parcela.id}}</td>
+                        <td>R$ {{parcela.prestacao | number: "1.2-2"}}</td>
+                        <td>R$ {{parcela.juros | number: "1.2-2"}}</td>
+                        <td>R$ {{parcela.amortizacao | number: "1.2-2"}}</td>
+                        <td>R$ {{parcela.saldoDevedor | number: "1.2-2"}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="box-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
