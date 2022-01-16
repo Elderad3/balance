@@ -12,13 +12,13 @@ export class Parcela {
 }
 
 @Component({
-  selector: 'app-financiamento-sac',
-  templateUrl: './financiamento-sac.component.html'
+  selector: 'app-financiamento-price',
+  templateUrl: './financiamento-price.component.html'
 })
 
-export class FinanciamentoSacComponent implements OnInit {
+export class FinanciamentoPriceComponent implements OnInit {
 
-  titulo: string = 'Financiamento SAC'
+  titulo: string = 'Financiamento PRICE'
   taxa: number
   valor: number
   periodo: number
@@ -33,7 +33,7 @@ export class FinanciamentoSacComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(this.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo sistema SAC (Sistema de Amortização Constante)' }
+      { name: 'description', content: 'Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo sistema PRICE (Sistema de Prestação Constante)' }
     );
   
   }
@@ -52,9 +52,12 @@ export class FinanciamentoSacComponent implements OnInit {
 primeiraParcela():Parcela{
   let parcela:Parcela = new Parcela
   parcela.id = 1
-  parcela.amortizacao = this.valor/this.periodo
+  let umMaisI = 1+(this.taxa/100)
+  let fracao1 =  ((Math.pow(umMaisI,this.periodo)) * (this.taxa/100))
+  let fracao2 = ((Math.pow(umMaisI,this.periodo))-1)
+  parcela.prestacao = this.valor * (fracao1/fracao2)
   parcela.juros = this.valor * (this.taxa/100)
-  parcela.prestacao = parcela.amortizacao + parcela.juros
+  parcela.amortizacao = parcela.prestacao - parcela.juros
   parcela.saldoDevedor = this.valor - parcela.amortizacao
   return parcela
 }
@@ -62,9 +65,9 @@ primeiraParcela():Parcela{
 parcelaSeguinte(ultima:Parcela) : Parcela {
 let novaParcela: Parcela = new Parcela
 novaParcela.id = ultima.id + 1
-novaParcela.amortizacao = ultima.amortizacao
+novaParcela.prestacao = ultima.prestacao
 novaParcela.juros = ultima.saldoDevedor * (this.taxa/100)
-novaParcela.prestacao = novaParcela.amortizacao + novaParcela.juros
+novaParcela.amortizacao = novaParcela.prestacao - novaParcela.juros
 novaParcela.saldoDevedor = ultima.saldoDevedor - novaParcela.amortizacao
 return novaParcela
 }
