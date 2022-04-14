@@ -14,7 +14,7 @@ const ROTAS: Routes = [
   { path: 'financiamento-price', loadChildren: () => import('./pages/financiamento-price/financiamento-price.module').then(m => m.FinanciamentoPriceModule) },
   { path: 'termos-de-uso', loadChildren: () => import('./pages/termos-de-uso/termos-de-uso.module').then(m => m.TermosDeUsoModule) },
   { path: 'politica-de-privacidade', loadChildren: () => import('./pages/politica-de-privacidade/politica-de-privacidade.module').then(m => m.PoliticaDePrivacidadeModule) },
-  // { path: 'sobre', loadChildren: () => import('./pages/sobre/sobre.module').then(m => m.SobreModule) },
+  { path: 'sobre', loadChildren: () => import('./pages/sobre/sobre.module').then(m => m.SobreModule) },
   { path: '**', component: PageNotFoundComponent }
 ];
 
