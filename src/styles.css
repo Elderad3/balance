@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@media print { 
+    /* All your print styles go here */
+#printBtn { display: none !important; } 
+}
 .table-border{
     border-bottom: 1px solid rgb(170, 170, 170)
 }

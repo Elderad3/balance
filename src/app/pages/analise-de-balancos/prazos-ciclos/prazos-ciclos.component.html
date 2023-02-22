@@ -18,10 +18,10 @@
     </div>
     <div class="col-md-6">
       <h4>Exercício {{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Estoque Médio'" [nome2]="'Custo dos Produtos Vendidos'" [valor1]="estoqueMedio"
-        [valor2]="custoProdutosVendidosB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Estoque Médio', valor: estoqueMedio},
+        {nome: 'Custo dos Produtos Vendidos', valor: custoProdutosVendidosB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p><i> Estoque Ano 1: {{estoqueAno1 | number: "1.2-2"}}</i></p>
       <p><i> Estoque Ano 2: {{estoqueAno2 | number: "1.2-2"}}</i></p>
@@ -57,10 +57,11 @@
     </div>
     <div class="col-md-6">
       <h4>Exercício {{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Contas a Receber Média'" [nome2]="'Receita Operacional Líquida'"
-        [valor1]="contasReceberMedia" [valor2]="receitaOperacionalLiquidaB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Contas a Receber Média', valor: contasReceberMedia},
+        {nome: 'Receita Operacional Líquida', valor: receitaOperacionalLiquidaB2}]">
+    </app-grafico2>
+      
       <hr class="hr-class">
       <p>
         <i>
@@ -110,9 +111,10 @@
     </div>
     <div class="col-md-6">
       <h4>Exercício {{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Fornecedores Média'" [nome2]="'Compras'" [valor1]="fornecedoresMedia" [valor2]="comprasB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Fornecedores Média', valor: fornecedoresMedia},
+        {nome: 'Compras', valor: comprasB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>
@@ -164,10 +166,10 @@
     </div>
     <div class="col-md-6">
       <h4>Exercício {{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Prazo Médio de Renovação de Estoque'" [nome2]="'Prazo Médio de Recebimento de Vendas'"
-        [valor1]="pmreB2" [valor2]="pmrvB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Prazo Médio de Renovação de Estoque', valor: pmreB2},
+        {nome: 'Prazo Médio de Recebimento de Vendas', valor: pmrvB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Prazo Médio de Renovação de Estoque:
@@ -214,10 +216,10 @@
     </div>
     <div class="col-md-6">
       <h4>Exercício {{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Ciclo Operacional'" [nome2]="'Prazo Médio de Pagamento de Compras'"
-        [valor1]="cicloOperacional" [valor2]="pmpcB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Ciclo Operacional', valor: cicloOperacional},
+        {nome: 'Prazo Médio de Pagamento de Compras', valor: pmpcB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Ciclo Operacional:

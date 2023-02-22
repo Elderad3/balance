@@ -19,10 +19,11 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-
-      <app-grafico [nome1]="'Ativo Total'" [nome2]="'Passivo Circulante'" [nome3]="'Passivo não Circulante'"
-        [valor1]="ativoTotalB1" [valor2]="passivoCirculanteTotalB1" [valor3]="passivoNaoCirculanteTotalB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Ativo Total', valor: ativoTotalB1},
+        {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB1},
+        {nome: 'Passivo não Circulante', valor: passivoNaoCirculanteTotalB1}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Ativo Total: {{ ativoTotalB1 | number: "1.2-2" }}</i>
@@ -50,10 +51,11 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-
-      <app-grafico [nome1]="'Ativo Total'" [nome2]="'Passivo Circulante'" [nome3]="'Passivo não Circulante'"
-        [valor1]="ativoTotalB2" [valor2]="passivoCirculanteTotalB2" [valor3]="passivoNaoCirculanteTotalB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Ativo Total', valor: ativoTotalB2},
+        {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB2},
+        {nome: 'Passivo não Circulante', valor: passivoNaoCirculanteTotalB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Ativo Total: {{ ativoTotalB2 | number: "1.2-2" }}</i>

@@ -12,6 +12,7 @@ const ROTAS: Routes = [
   { path: 'cnaes-impeditivos-simples-nacional', loadChildren: () => import('./pages/simples-nacional/cnaes-impeditivos/cnaes-impeditivos.module').then(m => m.CnaesImpeditivosModule) },
   { path: 'financiamento-sac', loadChildren: () => import('./pages/financiamento-sac/financiamento-sac.module').then(m => m.FinanciamentoSacModule) },
   { path: 'financiamento-price', loadChildren: () => import('./pages/financiamento-price/financiamento-price.module').then(m => m.FinanciamentoPriceModule) },
+  { path: 'recisao', loadChildren: () => import('./pages/recisao/recisao.module').then(m => m.RecisaoModule) },
   { path: 'termos-de-uso', loadChildren: () => import('./pages/termos-de-uso/termos-de-uso.module').then(m => m.TermosDeUsoModule) },
   { path: 'politica-de-privacidade', loadChildren: () => import('./pages/politica-de-privacidade/politica-de-privacidade.module').then(m => m.PoliticaDePrivacidadeModule) },
   { path: 'sobre', loadChildren: () => import('./pages/sobre/sobre.module').then(m => m.SobreModule) },

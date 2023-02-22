@@ -1,13 +1,14 @@
 import { ChartModule } from 'primeng/chart';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GraficoComponent } from './components/grafico/grafico.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { Grafico2Component } from './components/grafico2/grafico2.component';
 
 
 @NgModule({
   declarations: [
-    GraficoComponent, PageNotFoundComponent
+    Grafico2Component,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +17,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   exports: [
     CommonModule,
-    GraficoComponent,
+    Grafico2Component
   ],
   providers: [],
 })

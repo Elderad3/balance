@@ -22,9 +22,11 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-      <app-grafico [nome1]="'Passivo Circulante'" [nome2]="'Passivo não Circulante'" [nome3]="'Patrimônio Líquido'"
-        [valor1]="passivoCirculanteTotalB1" [valor2]="passivoNaoCirculanteTotalB1" [valor3]="patrimonioLiquidoB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Passivo Circulante', valor: this.passivoCirculanteTotalB1},
+        {nome: 'Passivo Não Circulante', valor: passivoNaoCirculanteTotalB1},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB1}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Passivo Circulante:
@@ -54,9 +56,11 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-      <app-grafico [nome1]="'Passivo Circulante'" [nome2]="'Passivo não Circulante'" [nome3]="'Patrimônio Líquido'"
-        [valor1]="passivoCirculanteTotalB1" [valor2]="passivoNaoCirculanteTotalB1" [valor3]="patrimonioLiquidoB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Passivo Circulante', valor: passivoCirculanteTotalB2},
+        {nome: 'Passivo Não Circulante', valor: passivoNaoCirculanteTotalB2},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Passivo Circulante:
@@ -102,9 +106,10 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-      <app-grafico [nome1]="'Passivo Circulante'" [nome2]="'Passivo não Circulante'" [valor1]="passivoCirculanteTotalB1"
-        [valor2]="passivoNaoCirculanteTotalB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Passivo Circulante', valor: this.passivoCirculanteTotalB1},
+        {nome: 'Passivo Não Circulante', valor: passivoNaoCirculanteTotalB1}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Passivo Circulante:
@@ -130,9 +135,10 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-      <app-grafico [nome1]="'Passivo Circulante'" [nome2]="'Passivo não Circulante'" [valor1]="passivoCirculanteTotalB1"
-        [valor2]="passivoNaoCirculanteTotalB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Passivo Circulante', valor: this.passivoCirculanteTotalB2},
+        {nome: 'Passivo Não Circulante', valor: passivoNaoCirculanteTotalB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Passivo Circulante:
@@ -175,9 +181,10 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-      <app-grafico [nome1]="'Empréstimos'" [nome2]="'Patrimônio Líquido'" [valor1]="emprestimosB1"
-        [valor2]="patrimonioLiquidoB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Empréstimos', valor: emprestimosB1},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB1}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Empréstimos:
@@ -203,9 +210,10 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-      <app-grafico [nome1]="'Empréstimos'" [nome2]="'Patrimônio Líquido'" [valor1]="emprestimosB2"
-        [valor2]="patrimonioLiquidoB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Empréstimos', valor: emprestimosB2},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Empréstimos:
@@ -248,10 +256,12 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-      <app-grafico [nome1]="'Investimento'" [nome2]="'Imobilizado'" [nome3]="'Intangível'"
-        [nome4]="'Patrimônio Líquido'" [valor1]="investimentoB1" [valor2]="imobilizadoB1" [valor3]="intangivelB1"
-        [valor4]="patrimonioLiquidoB1">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Investimento', valor: investimentoB1},
+        {nome: 'Imobilizado', valor: imobilizadoB1},
+        {nome: 'Intangível', valor: intangivelB1},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB1}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Investimento:
@@ -287,10 +297,12 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-      <app-grafico [nome1]="'Investimento'" [nome2]="'Imobilizado'" [nome3]="'Intangível'"
-        [nome4]="'Patrimônio Líquido'" [valor1]="investimentoB2" [valor2]="imobilizadoB2" [valor3]="intangivelB2"
-        [valor4]="patrimonioLiquidoB2">
-      </app-grafico>
+      <app-grafico2 [propsGrafico]= 
+      "[{nome: 'Investimento', valor: investimentoB2},
+        {nome: 'Imobilizado', valor: imobilizadoB2},
+        {nome: 'Intangível', valor: intangivelB2},
+        {nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB2}]">
+    </app-grafico2>
       <hr class="hr-class">
       <p>
         <i>Investimento:

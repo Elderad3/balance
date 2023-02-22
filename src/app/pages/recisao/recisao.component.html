@@ -1,0 +1,77 @@
+<section class="content-header">
+  <h1>
+    Cálculo de Recisão de Contrato de Trabalho
+    <small>Calcule os valores totais de uma recisão de contrato de trabalho.</small>
+  </h1>
+</section>
+<section class="content">
+  <form class="form-horizontal" autocomplete="off" #recisaoForm="ngForm" id="recisaoForm"
+    [ngFormOptions]="{ updateOn: 'change' }">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title">Recisão</h3>
+          </div>
+          <div class="form-horizontal">
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2"> Data Início: </label>
+              <div class="col-sm-4">
+                <input class="form-control input-sm" type="date"
+                currencymask="" name="taxa" style="text-align: right;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2"> Data Fim: </label>
+              <div class="col-sm-4">
+                <input class="form-control input-sm" type="date"
+                currencymask="" name="taxa" style="text-align: right;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2">Motivo: </label>
+              <div class="col-sm-4">
+              <select class="form-control  input-sm">
+              <option>option 1</option>
+              <option>option 2</option>
+              <option>option 3</option>
+              <option>option 4</option>
+              <option>option 5</option>
+              </select>
+              </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2"> Valor do último salário: </label>
+                <div class="col-sm-4">
+                  <input class="form-control input-sm" type="text"
+                  currencymask="" name="taxa" style="text-align: right;">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2">Aviso prévio: </label>
+                <div class="col-sm-4">
+                <select class="form-control  input-sm">
+                <option>option 1</option>
+                <option>option 2</option>
+                <option>option 3</option>
+                <option>option 4</option>
+                <option>option 5</option>
+                </select>
+                </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2"> Número de filhos: </label>
+                  <div class="col-sm-4">
+                    <input class="form-control input-sm" type="number"
+                    currencymask="" name="taxa" style="text-align: right;">
+                  </div>
+                </div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
