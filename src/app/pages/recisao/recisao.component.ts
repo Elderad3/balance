@@ -2,6 +2,8 @@ import { Title, Meta } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Recisao } from 'src/app/shared/models/recisao.model';
+import { RecisaoService } from './recisao.service';
 
 export class Parcela {
   id: number
@@ -19,74 +21,43 @@ export class Parcela {
 export class RecisaoComponent implements OnInit {
 
   titulo: string = 'Recisão'
-  taxa: number
-  valor: number
-  periodo: number
-  parcelas: Parcela[] = []
+  recisao: Recisao = new Recisao()
+  inssSalarioBruto: {}
+  impostoDeRendaSalarioBruto: {}
+  saldoDeSalario: {totalDias: number, saldo: number}
+  decimoTerceiro: {}
+  ferias: {}
+  motivosRecisao: any[] = []
+  avisosPrevios:  any[] = []
  
 
   @ViewChild("recisaoForm", { static: false })
   recisaoForm: NgForm;
 
-  constructor(private titleService: Title, private metaService: Meta) { }
+  constructor(private titleService: Title, private metaService: Meta, private recisaoService: RecisaoService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.titulo);
     this.metaService.updateTag(
       { name: 'description', content: 'Calcule os valores totais de uma recisão de contrato de trabalho.' }
     );
+    this.motivosRecisao = this.recisaoService.motivosRecisao()
+    this.avisosPrevios = this.recisaoService.avisosPrevios()
+
   
   }
 
+
+
   calcular(){
-  const parcelas: Parcela[] = []
-  parcelas[0] = this.primeiraParcela()
-  for(let i=1;i< this.periodo; i++){
-    let ultimaParcela= parcelas.slice(-1)[0]
-    parcelas.push(this.parcelaSeguinte(ultimaParcela))
-  }
-  parcelas.push(this.soma(parcelas))
-  this.parcelas = parcelas
-}
-
-primeiraParcela():Parcela{
-  let parcela:Parcela = new Parcela
-  parcela.id = 1
-  let umMaisI = 1+(this.taxa/100)
-  let fracao1 =  ((Math.pow(umMaisI,this.periodo)) * (this.taxa/100))
-  let fracao2 = ((Math.pow(umMaisI,this.periodo))-1)
-  parcela.prestacao = this.valor * (fracao1/fracao2)
-  parcela.juros = this.valor * (this.taxa/100)
-  parcela.amortizacao = parcela.prestacao - parcela.juros
-  parcela.saldoDevedor = this.valor - parcela.amortizacao
-  return parcela
-}
-
-parcelaSeguinte(ultima:Parcela) : Parcela {
-let novaParcela: Parcela = new Parcela
-novaParcela.id = ultima.id + 1
-novaParcela.prestacao = ultima.prestacao
-novaParcela.juros = ultima.saldoDevedor * (this.taxa/100)
-novaParcela.amortizacao = novaParcela.prestacao - novaParcela.juros
-novaParcela.saldoDevedor = ultima.saldoDevedor - novaParcela.amortizacao
-return novaParcela
-}
-
-soma(parcelas: Parcela[]):Parcela{
-  const totalPrestacao = parcelas.map((parcela) => parcela.prestacao).reduce((total, preco) => total + preco, 0)
-  const totalJuros = parcelas.map((parcela) => parcela.juros).reduce((total, preco) => total + preco, 0)
-  const totalAmortizacao = parcelas.map((parcela) => parcela.amortizacao).reduce((total, preco) => total + preco, 0)
-  let parcela:Parcela = new Parcela
-  parcela.id = undefined
-  parcela.prestacao = totalPrestacao
-  parcela.juros = totalJuros
-  parcela.amortizacao = totalAmortizacao
-  parcela.saldoDevedor = 0
-  return parcela
+    this.saldoDeSalario = this.recisaoService.saldoSalario(this.recisao)
+    this.impostoDeRendaSalarioBruto = this.recisaoService.impostoDeRenda(this.saldoDeSalario.saldo)
+    this.inssSalarioBruto = this.recisaoService.inss(this.saldoDeSalario.saldo)
+    this.decimoTerceiro = this.recisaoService.decimoTerceiro(this.recisao)
+    this.ferias = this.recisaoService.ferias(this.recisao)
 }
 
 limparFormulario(){
     this.recisaoForm.resetForm()
-    this.parcelas = []
   }
 }
