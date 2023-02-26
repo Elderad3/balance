@@ -72,4 +72,26 @@ export class RescisaoComponent implements OnInit {
     this.totalVantagens = 0
     this.totalDescontos = 0
   }
+
+  validarDataInicial(){
+    const dataAdmissao = this.rescisaoService.dataUTC(this.rescisao.dataInicio);
+    if(!this.isDate(dataAdmissao)){
+      this.rescisaoForm.form.controls['dataInicio'].setErrors({'incorrect': true});
+    }
+  }
+
+  validarDataFinal(){
+    const dataAdmissao = this.rescisaoService.dataUTC(this.rescisao.dataInicio);
+    const dataDemissao = this.rescisaoService.dataUTC(this.rescisao.dataFim)
+
+    if(!this.isDate(dataDemissao)){
+      this.rescisaoForm.form.controls['dataFim'].setErrors({'incorrect': true});
+    }else if(dataDemissao.getTime() < dataAdmissao.getTime()){
+      this.rescisaoForm.form.controls['dataFim'].setErrors({'ismenor': true});
+    }
+  }
+
+  isDate(dateStr) {
+    return !isNaN(new Date(dateStr).getDate());
+  }
 }

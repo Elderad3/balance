@@ -9,6 +9,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RescisaoComponent } from './rescisao.component';
+import { ConceitoRescisaoComponent } from './conceito/conceito-rescisao.component';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,
@@ -21,7 +22,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 @NgModule({
-  declarations: [RescisaoComponent],
+  declarations: [RescisaoComponent, ConceitoRescisaoComponent],
   imports: [
     CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, RescisaoRoutingModule
   ],

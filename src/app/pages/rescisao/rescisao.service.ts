@@ -176,7 +176,7 @@ export class RescisaoService {
     avisosPrevios() {
         return [
             { valor: "TRABALHADO", nome: "Trabalhado" },
-            { valor: "INDENIZADO", nome: "Indenizado" }
+            { valor: "INDENIZADO", nome: "Indenizado" },
         ]
     }
 
