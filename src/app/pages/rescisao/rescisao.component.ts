@@ -66,7 +66,7 @@ export class RescisaoComponent implements OnInit {
   }
 
   limparFormulario() {
-    //this.rescisaoForm.resetForm()
+    this.rescisaoForm.resetForm()
     this.calculado = false
     this.verbas = []
     this.totalVantagens = 0

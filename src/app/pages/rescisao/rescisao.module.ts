@@ -10,6 +10,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RescisaoComponent } from './rescisao.component';
 import { ConceitoRescisaoComponent } from './conceito/conceito-rescisao.component';
+import { TabelaInssComponent } from './conceito/tabela-inss.component';
+import { TabelaIrComponent } from './conceito/tabela-ir.component';
+import { TabelaSalarioFamiliaComponent } from './conceito/tabela-salario-familia.component';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,
@@ -22,7 +25,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 @NgModule({
-  declarations: [RescisaoComponent, ConceitoRescisaoComponent],
+  declarations: [RescisaoComponent, ConceitoRescisaoComponent, TabelaInssComponent, TabelaIrComponent, TabelaSalarioFamiliaComponent],
   imports: [
     CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, RescisaoRoutingModule
   ],

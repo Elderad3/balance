@@ -64,7 +64,7 @@ export class RescisaoService {
         let ir: Verba = this.impostoDeRenda(totalFerias)
         ir.rubrica = "Ir sobre Férias Proporcionais"
         return [{
-            rubrica: "Ferias Proporcionais",
+            rubrica: "Ferias Proporcionais + 1/3",
             tipo: "Vantagem",
             valor: totalFerias,
             memoriaCalculo: `${mesesAReceber}/12 avos do último salário = ${valorFerias.toFixed(2)} + 
@@ -74,11 +74,11 @@ export class RescisaoService {
 
     inss(salarioBruto: number): Verba {
         let aliquota: number, deducao: number;
-        if (salarioBruto <= 1100) { aliquota = 0.075, deducao = 0 }
-        else if (salarioBruto <= 2203.48) { aliquota = 0.09, deducao = 16.5 }
-        else if (salarioBruto <= 3305.22) { aliquota = 0.12, deducao = 82.6 }
-        else if (salarioBruto <= 6433.57) { aliquota = 0.14, deducao = 148.71 }
-        else { aliquota = 0.14, deducao = 751.99 }
+        if (salarioBruto <= 1302) { aliquota = 0.075, deducao = 0 }
+        else if (salarioBruto <= 2571.29) { aliquota = 0.09, deducao = 19.53 }
+        else if (salarioBruto <= 3856.94) { aliquota = 0.12, deducao = 96.67 }
+        else if (salarioBruto <= 7507.49) { aliquota = 0.14, deducao = 173.81 }
+        else { aliquota = 0.14, deducao = 173.81 }
         let inss = salarioBruto * aliquota - deducao
         return {
             tipo: "Desconto",
@@ -167,7 +167,7 @@ export class RescisaoService {
                 tipo: "Vantagem",
                 valor: valor,
                 memoriaCalculo: `Renda dentro do teto de ${rendaMaxima}, ${rescisao.filhos} filhos x
-            ${valorMaximo} por filho = ${valor}`,
+            ${valorMaximo} por filho = ${valor} `,
             }
         }
         return undefined
