@@ -26,11 +26,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 @NgModule({
-  declarations: [SalarioLiquidoComponent, ConceitoSalarioLiquidoComponent],
-  imports: [
-    CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, SalarioLiquidoRoutingModule,
-    TabelaInssComponent, TabelaIrComponent, TabelaSalarioFamiliaComponent
-  ],
+  declarations: [SalarioLiquidoComponent, ConceitoSalarioLiquidoComponent, TabelaInssComponent, TabelaIrComponent, TabelaSalarioFamiliaComponent],
+  imports: [CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, SalarioLiquidoRoutingModule],
+  exports: [TabelaInssComponent, TabelaIrComponent, TabelaSalarioFamiliaComponent],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },]
 })
 export class SalarioLiquidoModule { }
