@@ -13,6 +13,7 @@ const ROTAS: Routes = [
   { path: 'financiamento-sac', loadChildren: () => import('./pages/financiamento-sac/financiamento-sac.module').then(m => m.FinanciamentoSacModule) },
   { path: 'financiamento-price', loadChildren: () => import('./pages/financiamento-price/financiamento-price.module').then(m => m.FinanciamentoPriceModule) },
   { path: 'calculo-rescisao-contrato-trabalho', loadChildren: () => import('./pages/rescisao/rescisao.module').then(m => m.RescisaoModule) },
+  { path: 'calculo-salario-liquido', loadChildren: () => import('./pages/salario-liquido/salario-liquido.module').then(m => m.SalarioLiquidoModule) },
   { path: 'termos-de-uso', loadChildren: () => import('./pages/termos-de-uso/termos-de-uso.module').then(m => m.TermosDeUsoModule) },
   { path: 'politica-de-privacidade', loadChildren: () => import('./pages/politica-de-privacidade/politica-de-privacidade.module').then(m => m.PoliticaDePrivacidadeModule) },
   { path: 'sobre', loadChildren: () => import('./pages/sobre/sobre.module').then(m => m.SobreModule) },

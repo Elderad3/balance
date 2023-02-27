@@ -43,7 +43,7 @@ export class AnaliseDeProjetosMainComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(this.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Calcule Online a Viabilidade Financeira de um Projeto' }
+      { name: 'description', content: 'Calcule Online a Viabilidade Financeira de um Projeto.' }
     );
     this.realizarCalculos()
   }

@@ -14,3 +14,8 @@ export class Verba {
     valor: number
     memoriaCalculo: string
 }
+
+export class Salario {
+    valor: number
+    filhos: number
+}

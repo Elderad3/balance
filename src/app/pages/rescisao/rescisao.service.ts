@@ -106,7 +106,7 @@ export class RescisaoService {
             valor: ir,
             memoriaCalculo: `Base de Calculo:(${salarioBruto.toFixed(2)} - 
             Inss: ${inss.toFixed(2)}) = ${baseDeCalculo.toFixed(2)}) x 
-            Alíquota: ${aliquota} -  Dedução: ${deducao}= 
+            Alíquota: ${aliquota} -  Dedução: ${deducao} = 
             ${ir.toFixed(2)} `
         }
     }
@@ -137,7 +137,8 @@ export class RescisaoService {
             tipo: "Vantagem",
             valor: avisoPrevioProporcional,
             memoriaCalculo: `${tempoServico.toFixed(2)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
-            último salário / 30 x ${diasAvisoPrevioProporcional} = ${avisoPrevioProporcional.toFixed(2)}`,
+            último salário / 30 x ${diasAvisoPrevioProporcional} + 13° av. prévio: ${decimoTerceiroAvisoPrevio} + 
+            Ferias av. Prévio: ${feriasAvisoPrevio}  = ${avisoPrevioProporcional.toFixed(2)}`,
         }, inss, ir]
     }
 

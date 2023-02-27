@@ -1,0 +1,114 @@
+<section class="content-header">
+  <h1>
+    Cálculo de Salário Líquido
+    <small>Cálculo detalhado do salário Líquido.</small>
+  </h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Salário Líquido</h3>
+      </div>
+      <div class="form-horizontal">
+        <div class="box-body">
+          <div class="row">
+          <div class="form-horizontal">
+            <form autocomplete="off" #salarioForm="ngForm" id="salarioForm" [ngFormOptions]="{ updateOn: 'change'}">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-sm-4"> Valor do Salário Bruto: </label>
+                  <div class="col-sm-3">
+                    <input class="form-control input-sm" currencyMask [options]="{allowNegative: false }" 
+                      name="valor" [(ngModel)]="salario.valor"  #valor="ngModel"  required  style="text-align: right;">
+                      <span *ngIf="valor.invalid && (valor.dirty || valor.touched)" class="text-red">Informe um valor</span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4"> Número de filhos: </label>
+                  <div class="col-sm-3">
+                    <input class="form-control input-sm" type="text" name="filhos" [(ngModel)]="salario.filhos"
+                    #filho="ngModel"  required  minlength="0" maxlength="2" pattern="[0-9]+$" style="text-align: right;">
+                    <span *ngIf="filho.invalid && (filho.dirty || filho.touched)" class="text-red">Valor inválido</span>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <!-- {{salarioForm.hasError | json}} -->
+              <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                [disabled]="salarioForm.invalid || this.calculado === true" (click)="calcular()">Calcular</button>
+              <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                [disabled]="salarioForm.invalid" (click)="limparFormulario()">Limpar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="calculado" class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Detalhamento</h3>
+      </div>
+      <div class="box-body no-padding">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <th>Rubrica</th>
+              <th>Tipo</th>
+              <th>Valor</th>
+              <th style="width: 60%">Memória de Cálculo</th>
+            </tr>
+            <tr *ngFor="let verba of verbas">
+              <td>{{verba.rubrica}}</td>
+              <td>{{verba.tipo}}</td>
+              <td>{{verba.valor | number: "1.2-2"}}</td>
+              <td>{{verba.memoriaCalculo}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <ul class="nav nav-pills nav-stacked">
+          <li><a><i class="fa fa-circle-o text-light-blue">
+              </i><b>Vantagens: {{totalVantagens | number: "1.2-2"}} </b>
+              <p><span *ngFor="let v  of vantagens"> {{v.rubrica}}: {{v.valor | number: "1.2-2"}} | </span></p>
+            </a>
+          </li>
+          <li>
+            <a>
+              <i class="fa fa-circle-o text-red"></i>
+              <b>Descontos: {{totalDescontos | number: "1.2-2"}} </b>
+              <p><span *ngFor="let d of descontos"> {{d.rubrica}}: {{d.valor | number: "1.2-2"}} | </span></p>
+            </a>
+          </li>
+          <li><a><i class="fa fa-circle-o text-light-blue">
+              </i><b>Líquido a Receber: {{totalVantagens - totalDescontos | number: "1.2-2"}}</b>
+              <p *ngIf="salario.motivo === 'DISPENSACOMJUSTACAUSA'">O empregado não terá direito ao aviso prévio, à
+                indenização compensatória de 40% sobre o saldo do FGTS,
+                nem ao seguro-desemprego. Além disso, o empregador pode requerer o ressarcimento dos prejuízos causados
+                pela falta grave cometida pelo empregado,
+                mediante ação judicial específica.</p>
+              <p *ngIf="salario.motivo === 'DISPENSASEMJUSTACAUSA'">Além dos valores das verbas rescisórias acima, o empregador deve efetuar o depósito do saldo do
+                Fundo de Garantia do Tempo de Serviço (FGTS)
+                na conta do empregado, acrescido da multa de 40% sobre o saldo do FGTS.
+                Para ter direito ao seguro-desemprego, o trabalhador precisa atender a alguns requisitos, tais como:
+                Ter sido dispensado sem justa causa;
+                Ter recebido salários de pessoa jurídica ou pessoa física equiparada à jurídica, durante pelo menos 12
+                meses nos últimos 18 meses antes da data da dispensa;
+                Não estar recebendo benefício previdenciário de prestação continuada, com exceção do auxílio-acidente e
+                pensão por morte;
+                Não possuir renda própria suficiente para o seu sustento e de sua família.</p>
+              <p *ngIf="salario.motivo === 'PEDIDODEDEMISSAO'">
+                Em geral, o trabalhador que pede demissão não tem direito ao seguro desemprego nem à multa de 40% sobre
+                o saldo do FGTS
+                mas pode ter direito a sacar o saldo da conta vinculada do FGTS, acrescido de eventuais rendimentos,
+                desde que respeitadas as condições previstas na legislação.
+              </p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  <app-sal-liquido-conceito></app-sal-liquido-conceito>
+</section>
