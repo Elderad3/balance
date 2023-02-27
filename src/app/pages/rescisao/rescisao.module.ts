@@ -29,6 +29,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   imports: [
     CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, RescisaoRoutingModule
   ],
+  exports: [TabelaInssComponent, TabelaIrComponent, TabelaSalarioFamiliaComponent],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },]
 })
 export class RescisaoModule { }
