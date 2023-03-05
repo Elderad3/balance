@@ -13,7 +13,7 @@ export class RescisaoService {
         let saldo = (rescisao.ultimoSalario / 30) * totalDias
         let inss: Verba = this.inss(saldo)
         inss.rubrica = 'Inss sobre Saldo de Salário'
-        let ir: Verba = this.impostoDeRenda(saldo)
+        let ir: Verba = this.impostoDeRenda(saldo, rescisao.filhos)
         ir.rubrica = 'Ir sobre Saldo de Salário'
         return [{
             rubrica: "Saldo de Salário",
@@ -34,7 +34,7 @@ export class RescisaoService {
         let valorDecimoTerceiro = rescisao.ultimoSalario / 12 * meses
         let inss: Verba = this.inss(valorDecimoTerceiro)
         inss.rubrica = 'Inss sobre o Décimo Terceiro'
-        let ir: Verba = this.impostoDeRenda(valorDecimoTerceiro)
+        let ir: Verba = this.impostoDeRenda(valorDecimoTerceiro, rescisao.filhos)
         ir.rubrica = 'Ir sobre o Décimo Terceiro'
         return [{
             rubrica: "Décimo Terceiro",
@@ -61,7 +61,7 @@ export class RescisaoService {
         let totalFerias = valorFerias + umTerco
         let inss: Verba = this.inss(totalFerias)
         inss.rubrica = "Inss sobre Férias Proporcionais"
-        let ir: Verba = this.impostoDeRenda(totalFerias)
+        let ir: Verba = this.impostoDeRenda(totalFerias, rescisao.filhos)
         ir.rubrica = "Ir sobre Férias Proporcionais"
         return [{
             rubrica: "Ferias Proporcionais + 1/3",
@@ -73,6 +73,9 @@ export class RescisaoService {
     }
 
     inss(salarioBruto: number): Verba {
+        if (salarioBruto > 7507.49) {
+            salarioBruto = 7507.49 // teto de salário pra contribuir pro inss
+        }
         let aliquota: number, deducao: number;
         if (salarioBruto <= 1302) { aliquota = 0.075, deducao = 0 }
         else if (salarioBruto <= 2571.29) { aliquota = 0.09, deducao = 19.53 }
@@ -89,15 +92,16 @@ export class RescisaoService {
         }
     }
 
-    impostoDeRenda(salarioBruto: number): Verba {
+    impostoDeRenda(salarioBruto: number, dependentes: number): Verba {
         const inss = this.inss(salarioBruto).valor;
-        const baseDeCalculo = salarioBruto - inss;
+        const deducaoDependentes = dependentes * 189.59
+        const baseDeCalculo = salarioBruto - inss - deducaoDependentes;
         let aliquota: number, deducao: number;
         if (baseDeCalculo <= 1903.98) { aliquota = 0, deducao = 0 }
         else if (baseDeCalculo <= 2826.65) { aliquota = 0.075, deducao = 142.80 }
-        else if (baseDeCalculo <= 3751.05) { aliquota = 0.15, deducao = 354.80; }
+        else if (baseDeCalculo <= 3751.05) { aliquota = 0.15, deducao = 354.80 }
         else if (baseDeCalculo <= 4664.68) {
-            aliquota = 0.225, deducao = 636.13;
+            aliquota = 0.225, deducao = 636.13
         } else { aliquota = 0.275, deducao = 869.36 }
         const impostoRenda = baseDeCalculo * aliquota - deducao;
         const ir = impostoRenda > 0 ? impostoRenda : 0
@@ -105,9 +109,8 @@ export class RescisaoService {
             tipo: "Desconto",
             valor: ir,
             memoriaCalculo: `Base de Calculo:(${salarioBruto.toFixed(2)} - 
-            Inss: ${inss.toFixed(2)}) = ${baseDeCalculo.toFixed(2)}) x 
-            Alíquota: ${aliquota} -  Dedução: ${deducao} = 
-            ${ir.toFixed(2)} `
+            Inss: ${inss.toFixed(2)} - Dedução por Dependente: ${deducaoDependentes.toFixed(2)} = ${baseDeCalculo.toFixed(2)}) x 
+            Alíquota: ${aliquota} - Dedução: ${deducao} = ${ir.toFixed(2)}`
         }
     }
 
@@ -129,7 +132,7 @@ export class RescisaoService {
         if (rescisao.avisoPrevio == 'TRABALHADO' && rescisao.motivo != 'DISPENSACOMJUSTACAUSA') {
             inss = this.inss(avisoPrevioProporcional)
             inss.rubrica = "Inss sobre Aviso prévio"
-            ir = this.impostoDeRenda(avisoPrevioProporcional)
+            ir = this.impostoDeRenda(avisoPrevioProporcional, rescisao.filhos)
             ir.rubrica = "Ir sobre Aviso prévio"
         }
         return [{

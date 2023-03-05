@@ -14,7 +14,7 @@ export class InicioComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(this.titulo);
     this.metaService.addTags([
-      { name: 'description', content: 'Ferramentas Online e Gratuitas para Contadores e Gestores' },
+      { name: 'description', content: 'Ferramentas Online e Gratuitas para Contadores e Gestores.' },
       { name: 'robots', content: 'index, follow' }
     ]);
 

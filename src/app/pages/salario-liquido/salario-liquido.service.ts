@@ -10,7 +10,7 @@ export class SalarioLiquidoService extends RescisaoService {
     salario(salario: Salario): Verba[] {
         let inss: Verba = this.inss(salario.valor)
         inss.rubrica = 'Inss sobre Salário'
-        let ir: Verba = this.impostoDeRenda(salario.valor)
+        let ir: Verba = this.impostoDeRenda(salario.valor, salario.filhos)
         ir.rubrica = 'Ir sobre Salário'
         return [{
             rubrica: "Salário",
@@ -22,7 +22,7 @@ export class SalarioLiquidoService extends RescisaoService {
 
 
     salarioFamilia2(salario: Salario): Verba {
-        const valorMaximo = 59.82; // valor máximo do salário família em 2021
+        const valorMaximo = 59.82; // valor máximo do salário família em 2022
         const rendaMaxima = 1745.18; // renda máxima para receber o valor máximo do salário família em 2023
         let valor = 0
 
