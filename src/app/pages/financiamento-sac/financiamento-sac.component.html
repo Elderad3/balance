@@ -1,7 +1,8 @@
 <section class="content-header">
   <h1>
     Cálculo de Financiamento SAC
-    <small>Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo Sistema SAC (Sistema de Amortização
+    <small>Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo Sistema SAC (Sistema de
+      Amortização
       Constante)</small>
   </h1>
 </section>
@@ -18,40 +19,87 @@
           <div class="form-horizontal">
             <div class="box-body">
               <div class="form-group">
-                <label class="col-sm-3">
+                <label class="col-sm-2">
                   Valor do Financiamento:
                 </label>
                 <div class="col-sm-3">
-                  <input currencyMask name="valor" [(ngModel)]="valor"
-                    class="form-control input-sm" [options]="{allowNegative: false }" required/>
+                  <input currencyMask name="valor" [(ngModel)]="valor" class="form-control input-sm"
+                    [options]="{allowNegative: false }" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-1">
+                  Taxa:
+                </label>
+                <div class="col-sm-1">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" required [disabled]="calculado === true" name="tipoTaxa"
+                        [(ngModel)]="tipoTaxa" id="optionsRadios1" value="AOMES" checked="">
+                      % Ao Mês
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="tipoTaxa" [(ngModel)]="tipoTaxa" id="optionsRadios2" value="AOANO"
+                        checked="">
+                      % Ao Ano
+                    </label>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <input currencyMask name="taxa" [(ngModel)]="taxa" class="form-control input-sm"
+                    [options]="{allowNegative: false }" required />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-3">
-                  Taxa(% ao mês):
+                  Período (Número de Meses):
                 </label>
-                <div class="col-sm-1">
-                  <input currencyMask name="taxa" [(ngModel)]="taxa"
-                   class="form-control input-sm" [options]="{allowNegative: false }"  required/>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3">
-                  Período (Número de meses):
-                </label>
-                <div class="col-sm-1">
-                  <input currencyMask name="periodo"  [(ngModel)]="periodo"
-                   class="form-control input-sm" [options]="{allowNegative: false, precision: 0 }" required  min="1" max="360" maxlength="3"/>
+
+                <div class="col-sm-2">
+                  <input currencyMask name="periodo" [(ngModel)]="periodo" class="form-control input-sm"
+                    [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-4">
-                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button" [disabled]="sacForm.invalid" (click)="calcular()">Calcular</button>
-                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button" [disabled]="sacForm.invalid" (click)="limparFormulario()">Limpar</button>
+                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                    [disabled]="sacForm.invalid" (click)="calcular()">Calcular</button>
+                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                    [disabled]="sacForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
                 </div>
               </div>
-              <div class="row">
+              <div *ngIf="parcelas.length" class="row">
+                <div class="col-md-12">
+                  <h4>Resumo</h4>
+                  <div class="box box-widget widget-user-2">
+                    <div class="box-footer no-padding">
+                      <ul class="nav nav-stacked">
+                        <li><a>Valor do Financiamento: <span class="pull-right badge bg-blue">{{valor | number:
+                              "1.2-2"}}</span></a></li>
+                        <li><a>Período: <span class="pull-right badge  bg-blue"> {{periodo}} meses</span></a></li>
+                        <li><a *ngIf="tipoTaxa ==='AOMES'">Taxa: <span class="pull-right badge  bg-blue">{{taxa}} % ao
+                              Mês</span></a>
+                          <a *ngIf="tipoTaxa ==='AOANO'">Taxa: <span class="pull-right badge  bg-blue">
+                              {{taxa}} % ao ano, equivale a {{taxaTransformada
+                              | number:
+                              "1.2-2"}} % ao mes</span></a>
+                        </li>
+                        <li><a>Juros: <span class="pull-right badge  bg-blue">{{parcelaTotal.juros | number:
+                              "1.2-2"}}</span></a></li>
+                        <li><a>Total a Pagar: <span class="pull-right badge  bg-blue">{{parcelaTotal.prestacao | number:
+                              "1.2-2"}}</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h4>Detalhamento</h4>
+                </div>
               </div>
+
+
               <div class="box-body no-padding">
                 <div class='table-responsive'>
                   <table *ngIf="parcelas.length" class="table table-striped">
@@ -81,28 +129,30 @@
           <div class="box-header with-border">
             <h3 class="box-title">Conceito</h3>
           </div>
-            <div class="box-body">
-              <p>A tabela SAC é uma forma de pagamento de um financiamento que é bastante utilizada no mercado financeiro. 
-              Nesse sistema, o valor das parcelas é composto por uma parte de amortização e outra de juros, sendo que a 
-              proporção entre as duas varia a cada mês. A cada mês, o valor da parcela permanece constante, 
+          <div class="box-body">
+            <p>A tabela SAC é uma forma de pagamento de um financiamento que é bastante utilizada no mercado financeiro.
+              Nesse sistema, o valor das parcelas é composto por uma parte de amortização e outra de juros, sendo que a
+              proporção entre as duas varia a cada mês. A cada mês, o valor da parcela permanece constante,
               enquanto a proporção entre a parte de amortização e a parte de juros varia.</p>
 
-              <p>Na tabela SAC, a amortização é constante ao longo do período de financiamento e os juros são calculados
-               sobre o saldo devedor do mês anterior. Isso significa que a cada mês, a parcela paga pelo tomador 
-               de empréstimo é composta por uma parte de juros, que é calculada com base no saldo devedor do mês anterior, 
-               e uma parte de amortização, que é constante.</p>
+            <p>Na tabela SAC, a amortização é constante ao longo do período de financiamento e os juros são calculados
+              sobre o saldo devedor do mês anterior. Isso significa que a cada mês, a parcela paga pelo tomador
+              de empréstimo é composta por uma parte de juros, que é calculada com base no saldo devedor do mês
+              anterior,
+              e uma parte de amortização, que é constante.</p>
 
-               <p>A tabela SAC apresenta o valor das prestações mensais do financiamento, 
-              bem como o valor dos juros e da amortização a cada mês. A amortização é calculada dividindo-se o valor total
-               do financiamento pelo número de meses do prazo, enquanto os juros são 
-               calculados multiplicando-se o saldo devedor do mês anterior pela taxa de juros.</p>
+            <p>A tabela SAC apresenta o valor das prestações mensais do financiamento,
+              bem como o valor dos juros e da amortização a cada mês. A amortização é calculada dividindo-se o valor
+              total
+              do financiamento pelo número de meses do prazo, enquanto os juros são
+              calculados multiplicando-se o saldo devedor do mês anterior pela taxa de juros.</p>
 
-               <p>Em resumo, a tabela SAC é uma forma de pagamento de um financiamento que apresenta valores de prestações, 
-              juros e amortizações de forma organizada, permitindo que o tomador de empréstimo visualize claramente 
-              o valor das prestações, dos juros e da amortização em cada mês do financiamento. 
-              Isso permite que o tomador de empréstimo faça uma análise mais precisa das condições do financiamento 
+            <p>Em resumo, a tabela SAC é uma forma de pagamento de um financiamento que apresenta valores de prestações,
+              juros e amortizações de forma organizada, permitindo que o tomador de empréstimo visualize claramente
+              o valor das prestações, dos juros e da amortização em cada mês do financiamento.
+              Isso permite que o tomador de empréstimo faça uma análise mais precisa das condições do financiamento
               e avalie a viabilidade de realizar o pagamento antecipado das parcelas, por exemplo.</p>
-            </div>
+          </div>
         </div>
       </div>
     </div>

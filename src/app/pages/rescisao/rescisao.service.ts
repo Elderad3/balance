@@ -7,7 +7,6 @@ import { Rescisao, Verba } from "src/app/shared/models/rescisao.model";
 export class RescisaoService {
 
     saldoSalario(rescisao: Rescisao): Verba[] {
-
         let dataFim = this.dataUTC(rescisao.dataFim)
         let totalDias = dataFim.getDate()
         let saldo = (rescisao.ultimoSalario / 30) * totalDias
@@ -86,7 +85,7 @@ export class RescisaoService {
         return {
             tipo: "Desconto",
             valor: inss,
-            memoriaCalculo: `Base de Calculo: ${salarioBruto.toFixed(2)} x 
+            memoriaCalculo: `Teto de contribuição vigente: 7.507,00. Base de Calculo: ${salarioBruto.toFixed(2)} x 
             Alíquota: ${aliquota} - Dedução: ${deducao} = 
             ${inss.toFixed(2)}`
         }
@@ -140,8 +139,8 @@ export class RescisaoService {
             tipo: "Vantagem",
             valor: avisoPrevioProporcional,
             memoriaCalculo: `${tempoServico.toFixed(2)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
-            último salário / 30 x ${diasAvisoPrevioProporcional} + 13° av. prévio: ${decimoTerceiroAvisoPrevio} + 
-            Ferias av. Prévio: ${feriasAvisoPrevio}  = ${avisoPrevioProporcional.toFixed(2)}`,
+            último salário / 30 x ${diasAvisoPrevioProporcional}: ${((salario / 30) * diasAvisoPrevioProporcional).toFixed(2)} + 13° av. prévio: ${decimoTerceiroAvisoPrevio.toFixed(2)} + 
+            Ferias av. Prévio: ${feriasAvisoPrevio.toFixed(2)}  = ${avisoPrevioProporcional.toFixed(2)}`,
         }, inss, ir]
     }
 
@@ -181,6 +180,7 @@ export class RescisaoService {
         return [
             { valor: "TRABALHADO", nome: "Trabalhado" },
             { valor: "INDENIZADO", nome: "Indenizado" },
+            { valor: "NAOSEAPLICA", nome: "Não se Aplica" },
         ]
     }
 

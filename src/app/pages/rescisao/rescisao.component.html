@@ -43,7 +43,8 @@
                 <div class="form-group">
                   <label class="col-sm-3">Motivo: </label>
                   <div class="col-sm-5">
-                    <select class="form-control input-sm" name="motivo" [(ngModel)]="rescisao.motivo" required>
+                    <select class="form-control input-sm" name="motivo" [(ngModel)]="rescisao.motivo" required
+                      (change)="loadAvisoPrevio()">
                       <option [value]="motivo.valor" *ngFor="let motivo of motivosRescisao">{{motivo.nome}}</option>
                     </select>
 
@@ -87,12 +88,12 @@
         </div>
         <div class="row">
           <div class="col-md-4">
-            <!-- {{rescisaoForm.hasError | json}} -->
             <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
               [disabled]="rescisaoForm.invalid || this.calculado === true" (click)="calcular()">Calcular</button>
             <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
               [disabled]="rescisaoForm.invalid" (click)="limparFormulario()">Limpar</button>
           </div>
+
         </div>
       </div>
     </div>

@@ -73,25 +73,37 @@ export class RescisaoComponent implements OnInit {
     this.totalDescontos = 0
   }
 
-  validarDataInicial(){
+  validarDataInicial() {
     const dataAdmissao = this.rescisaoService.dataUTC(this.rescisao.dataInicio);
-    if(!this.isDate(dataAdmissao)){
-      this.rescisaoForm.form.controls['dataInicio'].setErrors({'incorrect': true});
+    if (!this.isDate(dataAdmissao)) {
+      this.rescisaoForm.form.controls['dataInicio'].setErrors({ 'incorrect': true });
     }
   }
 
-  validarDataFinal(){
+  validarDataFinal() {
     const dataAdmissao = this.rescisaoService.dataUTC(this.rescisao.dataInicio);
     const dataDemissao = this.rescisaoService.dataUTC(this.rescisao.dataFim)
 
-    if(!this.isDate(dataDemissao)){
-      this.rescisaoForm.form.controls['dataFim'].setErrors({'incorrect': true});
-    }else if(dataDemissao.getTime() < dataAdmissao.getTime()){
-      this.rescisaoForm.form.controls['dataFim'].setErrors({'ismenor': true});
+    if (!this.isDate(dataDemissao)) {
+      this.rescisaoForm.form.controls['dataFim'].setErrors({ 'incorrect': true });
+    } else if (dataDemissao.getTime() < dataAdmissao.getTime()) {
+      this.rescisaoForm.form.controls['dataFim'].setErrors({ 'ismenor': true });
     }
   }
 
   isDate(dateStr) {
     return !isNaN(new Date(dateStr).getDate());
+  }
+
+  loadAvisoPrevio() {
+    this.avisosPrevios = this.rescisaoService.avisosPrevios()
+    if (this.rescisaoForm.value.motivo === 'DISPENSACOMJUSTACAUSA') {
+      this.avisosPrevios = this.avisosPrevios.filter(item => item.valor === "NAOSEAPLICA")
+      this.rescisaoForm.form.patchValue({ avisoPrevio: this.avisosPrevios[0].valor })
+    } else {
+      this.avisosPrevios = this.avisosPrevios.filter(item => item.valor != "NAOSEAPLICA")
+      this.rescisaoForm.form.patchValue({ avisoPrevio: this.avisosPrevios[0].valor })
+    }
+
   }
 }
