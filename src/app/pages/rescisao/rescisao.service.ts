@@ -127,21 +127,22 @@ export class RescisaoService {
         let avisoPrevioProporcional = ((salario / 30) * diasAvisoPrevioProporcional) + decimoTerceiroAvisoPrevio + feriasAvisoPrevio
         let inss: Verba
         let ir: Verba
-
-        if (rescisao.avisoPrevio == 'TRABALHADO' && rescisao.motivo != 'DISPENSACOMJUSTACAUSA') {
+        if (rescisao.avisoPrevio === 'INDENIZADO') {
             inss = this.inss(avisoPrevioProporcional)
             inss.rubrica = "Inss sobre Aviso prévio"
             ir = this.impostoDeRenda(avisoPrevioProporcional, rescisao.filhos)
             ir.rubrica = "Ir sobre Aviso prévio"
+            return [{
+                rubrica: "Aviso Prévio",
+                tipo: "Vantagem",
+                valor: avisoPrevioProporcional,
+                memoriaCalculo: `${tempoServico.toFixed(2)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
+                último salário / 30 x ${diasAvisoPrevioProporcional}: ${((salario / 30) * diasAvisoPrevioProporcional).toFixed(2)} + 13° av. prévio: ${decimoTerceiroAvisoPrevio.toFixed(2)} + 
+                Ferias av. Prévio: ${feriasAvisoPrevio.toFixed(2)}  = ${avisoPrevioProporcional.toFixed(2)}`,
+            }, inss, ir]
         }
-        return [{
-            rubrica: "Aviso Prévio",
-            tipo: "Vantagem",
-            valor: avisoPrevioProporcional,
-            memoriaCalculo: `${tempoServico.toFixed(2)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
-            último salário / 30 x ${diasAvisoPrevioProporcional}: ${((salario / 30) * diasAvisoPrevioProporcional).toFixed(2)} + 13° av. prévio: ${decimoTerceiroAvisoPrevio.toFixed(2)} + 
-            Ferias av. Prévio: ${feriasAvisoPrevio.toFixed(2)}  = ${avisoPrevioProporcional.toFixed(2)}`,
-        }, inss, ir]
+        return undefined
+
     }
 
     diasAvisoPrevioProporcional(rescisao: Rescisao) {
@@ -192,7 +193,7 @@ export class RescisaoService {
         ]
     }
 
-    dataUTC(data) {
+    dataUTC(data: any) {
         let date = new Date(data);
         date = new Date(
             date.getUTCFullYear(),

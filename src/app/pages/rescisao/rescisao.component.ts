@@ -51,12 +51,14 @@ export class RescisaoComponent implements OnInit {
     this.rescisaoService.ferias(this.rescisao).forEach(verba => {
       this.verbas.push(verba)
     })
-    this.rescisaoService.avisoPrevio(this.rescisao).forEach(verba => {
-      this.verbas.push(verba)
-    })
+    this.rescisaoService.avisoPrevio(this.rescisao) ?
+      this.rescisaoService.avisoPrevio(this.rescisao).forEach(verba => {
+        this.verbas.push(verba)
+      }) : 0
     this.verbas.push(this.rescisaoService.salarioFamilia(this.rescisao))
 
     this.verbas = this.verbas.filter(v => v)
+
     this.vantagens = this.verbas.filter(v => v.tipo === 'Vantagem')
     this.totalVantagens = this.vantagens.map((vant) => vant.valor).reduce((total, preco) => total + preco, 0)
     this.descontos = this.verbas.filter(v => v.tipo === 'Desconto')
