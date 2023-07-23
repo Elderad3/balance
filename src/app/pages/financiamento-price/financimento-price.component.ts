@@ -29,7 +29,7 @@ export class FinanciamentoPriceComponent implements OnInit {
   calculado: boolean = false
 
 
-  @ViewChild("priceForm", { static: false })
+  @ViewChild("priceForm")
   priceForm: NgForm;
 
   constructor(private titleService: Title, private metaService: Meta) { }

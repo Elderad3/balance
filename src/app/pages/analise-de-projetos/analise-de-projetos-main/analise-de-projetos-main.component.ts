@@ -35,7 +35,7 @@ export class AnaliseDeProjetosMainComponent implements OnInit {
     { id: 5, nome: 'Fluxo de Caixa Período 4', taxa: 10, periodo: 4, fluxoDeCaixa: 150000, valorPresente: 0, vplAcumulado: 0, sistema: 'N' }
   ]
 
-  @ViewChild("projetoForm", { static: false })
+  @ViewChild("projetoForm")
   projetoForm: NgForm;
 
   constructor(

@@ -1,7 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
-import { CurrencyMaskConfig } from 'ng2-currency-mask/src/currency-mask.config';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { AnaliseDeProjetosRoutingModule } from './analise-de-projetos.rounting.module';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from './../../core/core.module';

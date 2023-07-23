@@ -14,7 +14,7 @@ export class DreComponent implements OnInit {
   @Input() ano1: number
   @Input() ano2: number
 
-  @ViewChild("dreForm", { static: false })
+  @ViewChild("dreForm")
   ativoForm: NgForm;
 
   constructor(private dreService: DreService) { }

@@ -14,7 +14,7 @@ export class CnaesImpeditivosComponent implements OnInit {
 
   codigoCnae: string = ''
   cnae: any
-  @ViewChild("cnaesForm", { static: false })
+  @ViewChild("cnaesForm")
   ativoForm: NgForm;
 
   constructor(private cnaesImpeditivosService: CnaesImpeditivosService,

@@ -32,7 +32,7 @@ export class FinanciamentoSacComponent implements OnInit {
 
 
 
-  @ViewChild("sacForm", { static: false })
+  @ViewChild("sacForm")
   sacForm: NgForm;
 
   constructor(private titleService: Title, private metaService: Meta) { }

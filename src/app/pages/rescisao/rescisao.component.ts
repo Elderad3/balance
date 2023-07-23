@@ -24,7 +24,7 @@ export class RescisaoComponent implements OnInit {
   totalDescontos: number = 0
 
 
-  @ViewChild("rescisaoForm", { static: false })
+  @ViewChild("rescisaoForm")
   rescisaoForm: NgForm;
 
   constructor(private titleService: Title, private metaService: Meta, private rescisaoService: RescisaoService) { }

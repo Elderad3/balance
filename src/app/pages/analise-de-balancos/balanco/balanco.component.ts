@@ -13,7 +13,7 @@ export class BalancoComponent implements OnInit {
   @Input() b1: Balanco2;
   @Input() b2: Balanco2;
 
-  @ViewChild("ativoForm", { static: false })
+  @ViewChild("ativoForm")
   ativoForm: NgForm;
 
   constructor(private balancoService: BalancoService, private titleService: Title, private metaService: Meta) { }

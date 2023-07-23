@@ -9,9 +9,7 @@ import { EstruturaComponent } from './../situacao-financeira/estrutura/estrutura
 import { SolvenciaComponent } from './../situacao-financeira/solvencia/solvencia.component';
 import { LiquidezComponent } from './../situacao-financeira/liquidez/liquidez.component';
 import { HomeRoutingModule } from './home.routing.module';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
-import { CurrencyMaskConfig } from 'ng2-currency-mask/src/currency-mask.config';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from "ng2-currency-mask";
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 

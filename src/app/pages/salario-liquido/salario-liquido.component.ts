@@ -22,7 +22,7 @@ export class SalarioLiquidoComponent implements OnInit {
   totalDescontos: number = 0
 
 
-  @ViewChild("salarioForm", { static: false })
+  @ViewChild("salarioForm")
   salarioForm: NgForm;
 
   constructor(private titleService: Title, private metaService: Meta, private salarioLiquidoService: SalarioLiquidoService) { }
