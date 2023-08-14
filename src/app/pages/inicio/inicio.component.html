@@ -1,65 +1,89 @@
 <!-- INÍCIO DO CONTEÚDO -->
 <section class="content-header">
   <h1>
-    Ferramentas Online e Gratuitas para Contadores e Gestores
+    Ferramentas Online e Gratuitas
     <small></small>
   </h1>
 </section>
 <section class="content" style="margin-bottom: 10px;">
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Análise de Balanços</h3>
-      <p>
-        Ferramenta online que realiza análise econômico-financeira das demonstrações contábeis de uma empresa.
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/analise-de-balanco']">Acessar</a>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Análise de Balanços</h3>
+        <p>
+          Ferramenta online que realiza análise econômico-financeira das demonstrações contábeis de uma empresa.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/analise-de-balanco']">Acessar</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Análise Financeira de Projetos</h3>
+        <p>
+          Ferramenta online que realiza cálculo de viabilidade financeira de projetos.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/analise-financeira-de-projeto']">Acessar</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Atividades impeditivas ao Simples Nacional</h3>
+        <p>
+          Ferramenta online que verifica se determinado CNAE é permitido, ambíguo ou impeditivo ao simples Nacional.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/cnaes-impeditivos-simples-nacional']">Acessar</a>
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Análise Financeira de Projetos</h3>
-      <p>
-        Ferramenta online que realiza cálculo de viabilidade financeira de projetos.
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/analise-financeira-de-projeto']">Acessar</a>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Cálculo de Financiamento Tabela Sac</h3>
+        <p>
+          Ferramenta que calcula prestações, juros, amortização e saldo devedor de um financiamento pelo SAC (Sistema de
+          Amortização Constante).
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/financiamento-sac']">Acessar</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Cálculo de Financiamento Tabela Price</h3>
+        <p>
+          Ferramenta que calcula prestações, juros, amortização e saldo devedor de um financiamento pelo sistema PRICE
+          (Sistema de Prestação Constante).
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/financiamento-price']">Acessar</a>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Cálculo de Rescisão de Contrato de Trabalho</h3>
+        <p>
+          Cálculo detalhado de rescisão de contrato de trabalho.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/calculo-rescisao-contrato-trabalho']">Acessar</a>
+      </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Atividades impeditivas ao Simples Nacional</h3>
-      <p>
-        Ferramenta online que verifica se determinado CNAE é permitido, ambíguo ou impeditivo ao simples Nacional.
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/cnaes-impeditivos-simples-nacional']">Acessar</a>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Calculadora de Porcentagem</h3>
+        <p>
+          Calcule porcentagem de formas variadas e com duas casas decimais.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/calculadora-de-porcentagem']">Acessar</a>
+      </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Cálculo de Financiamento Tabela Sac</h3>
-      <p>
-        Ferramenta que calcula prestações, juros, amortização e saldo devedor de um financiamento pelo SAC (Sistema de
-        Amortização Constante).
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/financiamento-sac']">Acessar</a>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Cálculo de Financiamento Tabela Price</h3>
-      <p>
-        Ferramenta que calcula prestações, juros, amortização e saldo devedor de um financiamento pelo sistema PRICE
-        (Sistema de Prestação Constante).
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/financiamento-price']">Acessar</a>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="jumbotron">
-      <h3>Cálculo de Rescisão de Contrato de Trabalho</h3>
-      <p>
-        Cálculo detalhado de rescisão de contrato de trabalho.
-      </p>
-      <a class="btn btn-primary" [routerLink]="['/calculo-rescisao-contrato-trabalho']">Acessar</a>
+    <div class="col-md-4">
+      <div class="jumbotron">
+        <h3>Cálculo Salário Líquido</h3>
+        <p>
+          Cálculo detalhado do salário líquido.
+        </p>
+        <a class="btn btn-primary" [routerLink]="['/calculo-salario-liquido']">Acessar</a>
+      </div>
     </div>
   </div>
 </section>

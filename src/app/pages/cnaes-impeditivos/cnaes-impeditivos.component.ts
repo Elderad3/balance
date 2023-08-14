@@ -1,6 +1,6 @@
 import { Title, Meta } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
-import { ErrorService } from './../../../shared/services/error.service';
+import { ErrorService } from './../../shared/services/error.service';
 import { CnaesImpeditivosService } from './cnaes-impeditivos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
@@ -103,5 +103,4 @@ export class Cnae {
   impeditivo: boolean
   ambiguo: boolean
   atividades: any[]
-  // observacoes: any[]
 }

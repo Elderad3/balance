@@ -1,35 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
-@media print { 
+@media print {
+
     /* All your print styles go here */
-#printBtn { display: none !important; } 
+    #printBtn {
+        display: none !important;
+    }
 }
-.table-border{
+
+.table-border {
     border-bottom: 1px solid rgb(170, 170, 170)
 }
-.vermelho{
+
+.vermelho {
     color: red;
 }
-.verde{
+
+.verde {
     color: green;
 }
 
 .jumbotron {
-    background-color:#ffff !important;
+    background-color: #ffff !important;
     padding: 20px !important;
     margin: 5px !important;
 }
+
 .hr-class {
     border-top: 1px dashed #3c8dbc;
     border-bottom: 1px solid #3c8dbc;
     color: #fff;
     background-color: #fff;
     height: 4px;
-  }
-.hr-class-two{
+}
+
+.hr-class-two {
     background-color: #eee;
     border: 0 none;
     color: #eee;
     height: 2px;
 }
 
+.margin-aply {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
 
+.margin-left-aply {
+    margin-left: 0.5em;
+}
+
+.margin-right-aply {
+    margin-right: 0.5em;
+}
