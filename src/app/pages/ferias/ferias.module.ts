@@ -1,13 +1,13 @@
 import { FormsModule } from '@angular/forms';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
-import { SalarioLiquidoRoutingModule } from './salario-liquido.rounting.module';
+import { FeriasRoutingModule } from './ferias.rounting.module';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SalarioLiquidoComponent } from './salario-liquido.component';
-import { ConceitoSalarioLiquidoComponent } from './conceito/conceito-sal-liquido.component';
+import { FeriasComponent } from './ferias.component';
+import { ConceitoFeriasComponent } from './conceito/conceito-ferias.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -21,9 +21,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 @NgModule({
-  declarations: [SalarioLiquidoComponent, ConceitoSalarioLiquidoComponent],
-  imports: [CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, SalarioLiquidoRoutingModule],
+  declarations: [FeriasComponent, ConceitoFeriasComponent],
+  imports: [CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, FeriasRoutingModule],
   exports: [],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },]
 })
-export class SalarioLiquidoModule { }
+export class FeriasModule { }

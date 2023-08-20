@@ -19,3 +19,9 @@ export class Salario {
     valor: number
     filhos: number
 }
+
+export class Ferias {
+    valor: number
+    filhos: number
+    dias: number
+}

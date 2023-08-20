@@ -4,14 +4,25 @@ import { ErrorService } from './../../shared/services/error.service';
 import { CnaesImpeditivosService } from './cnaes-impeditivos.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { take } from 'rxjs/operators';
+import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
+
+export class Cnae {
+  codigo: string
+  descricao: string
+  impeditivo: boolean
+  ambiguo: boolean
+  atividades: any[]
+}
 
 @Component({
   selector: 'app-cnaes-impeditivos',
   templateUrl: './cnaes-impeditivos.component.html'
 })
 export class CnaesImpeditivosComponent implements OnInit {
-  titulo: string = 'Cnaes Impeditivos ao Simples Nacional'
-
+  menuContext: MenuContext = {
+    titulo: 'Cnaes Impeditivos ao Simples Nacional',
+    descricao: 'Ferramenta Online', modulo: 'Contabilidade'
+  }
   codigoCnae: string = ''
   cnae: any
   @ViewChild("cnaesForm")
@@ -23,9 +34,9 @@ export class CnaesImpeditivosComponent implements OnInit {
     private metaService: Meta) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.titulo);
+    this.titleService.setTitle(this.menuContext.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Ferramenta online que verifica se determinado CNAE é permitido, ambíguo ou impeditivo ao simples Nacional.' }
+      { name: 'description', content: 'Ferramenta online que verifica se determinado CNAE é permitido, ambíguo ou impeditivo ao simples Nacional' }
     );
   }
 
@@ -97,10 +108,4 @@ export class CnaesImpeditivosComponent implements OnInit {
     return ambiguo
   }
 }
-export class Cnae {
-  codigo: string
-  descricao: string
-  impeditivo: boolean
-  ambiguo: boolean
-  atividades: any[]
-}
+

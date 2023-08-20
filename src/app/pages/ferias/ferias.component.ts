@@ -2,19 +2,19 @@ import { Title, Meta } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { SalarioLiquidoService } from '../salario-liquido/salario-liquido.service';
-import { Verba, Salario } from 'src/app/shared/models/rescisao.model';
+import { Verba, Ferias } from 'src/app/shared/models/rescisao.model';
+import { FeriasService } from './ferias.service';
 import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
 
 @Component({
-  selector: 'app-salario-liquido',
-  templateUrl: './salario-liquido.component.html'
+  selector: 'app-ferias',
+  templateUrl: './ferias.component.html'
 })
 
-export class SalarioLiquidoComponent implements OnInit {
+export class FeriasComponent implements OnInit {
 
-  menuContext: MenuContext = { titulo: 'Cálculo Salário Líquido', descricao: 'Cálculo Detalhado do Salário Líquido', modulo: 'Trabalhista' }
-  salario: Salario
+  menuContext: MenuContext = { titulo: 'Cálculo Férias', descricao: 'Cálculo Detalhado de férias', modulo: 'Trabalhista' }
+  ferias: Ferias
   calculado: boolean = false
   verbas: Verba[] = []
   vantagens: Verba[] = []
@@ -23,26 +23,28 @@ export class SalarioLiquidoComponent implements OnInit {
   totalDescontos: number = 0
 
 
-  @ViewChild("salarioForm")
-  salarioForm: NgForm;
 
-  constructor(private titleService: Title, private metaService: Meta, private salarioLiquidoService: SalarioLiquidoService) { }
+  @ViewChild("feriasForm")
+  feriasForm: NgForm;
+
+  constructor(private titleService: Title, private metaService: Meta, private feriasService: FeriasService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.menuContext.titulo);
     this.metaService.updateTag(
       { name: 'description', content: this.menuContext.descricao }
     );
-    this.salario = new Salario()
+    this.ferias = new Ferias()
 
 
   }
 
   calcular() {
-    this.salarioLiquidoService.salario(this.salario).forEach(verba => {
+    this.feriasService.saldoFerias(this.ferias).forEach(verba => {
       this.verbas.push(verba)
     })
-    this.verbas.push(this.salarioLiquidoService.salarioFamilia2(this.salario))
+    this.verbas.push(this.feriasService.feriasFamilia2(this.ferias))
+
 
     this.verbas = this.verbas.filter(v => v)
     this.vantagens = this.verbas.filter(v => v.tipo === 'Vantagem')
@@ -54,7 +56,7 @@ export class SalarioLiquidoComponent implements OnInit {
   }
 
   limparFormulario() {
-    this.salarioForm.resetForm()
+    this.feriasForm.resetForm()
     this.calculado = false
     this.verbas = []
     this.totalVantagens = 0

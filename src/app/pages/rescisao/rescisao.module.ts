@@ -7,8 +7,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RescisaoComponent } from './rescisao.component';
-import { ConceitoRescisaoComponent } from './conceito/conceito-rescisao.component';
 import { SalarioLiquidoModule } from '../salario-liquido/salario-liquido.module';
+import { ConceitoRescisaoComponent } from './conceito/conceito-rescisao.component';
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,

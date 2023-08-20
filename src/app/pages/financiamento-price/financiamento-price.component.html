@@ -1,165 +1,246 @@
-<section class="content-header">
-  <h1>
-    Cálculo de Financiamento PRICE
-    <small>Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo PRICE (Sistema de Prestação
-      Constante)</small>
-  </h1>
-</section>
+<app-menu-context [menuContext]="menuContext"></app-menu-context>
 <section class="content">
-  <form class="form-horizontal" autocomplete="off" #priceForm="ngForm" id="priceForm"
-    [ngFormOptions]="{ updateOn: 'change' }">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Tabela PRICE</h3>
-          </div>
+  <div class="row">
+    <div class="col-md-9">
+      <form class="form-horizontal" autocomplete="off" #priceForm="ngForm" id="priceForm"
+        [ngFormOptions]="{ updateOn: 'change' }">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Tabela PRICE</h3>
+              </div>
 
-          <div class="form-horizontal">
-            <div class="box-body">
-              <div class="form-group">
-                <label class="col-sm-2">
-                  Valor do Financiamento:
-                </label>
-                <div class="col-sm-3">
-                  <input currencyMask name="valor" [(ngModel)]="valor" class="form-control input-sm"
-                    [options]="{allowNegative: false }" required />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1">
-                  Taxa:
-                </label>
-                <div class="col-sm-1">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" required [disabled]="calculado === true" name="tipoTaxa"
-                        [(ngModel)]="tipoTaxa" id="optionsRadios1" value="AOMES" checked="">
-                      % Ao Mês
+              <div class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label class="col-sm-3">
+                      Valor do Financiamento:
                     </label>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="tipoTaxa" [(ngModel)]="tipoTaxa" id="optionsRadios2" value="AOANO"
-                        checked="">
-                      % Ao Ano
-                    </label>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <input currencyMask name="taxa" [(ngModel)]="taxa" class="form-control input-sm"
-                    [options]="{allowNegative: false }" required />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3">
-                  Período (Número de Meses):
-                </label>
-
-                <div class="col-sm-2">
-                  <input currencyMask name="periodo" [(ngModel)]="periodo" class="form-control input-sm"
-                    [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
-                    [disabled]="priceForm.invalid" (click)="calcular()">Calcular</button>
-                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
-                    [disabled]="priceForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
-                </div>
-              </div>
-              <div *ngIf="parcelas.length" class="row">
-                <div class="col-md-12">
-                  <h4>Resumo</h4>
-                  <div class="box box-widget widget-user-2">
-                    <div class="box-footer no-padding">
-                      <ul class="nav nav-stacked">
-                        <li><a>Valor do Financiamento: <span class="pull-right badge bg-blue">{{valor | number:
-                              "1.2-2"}}</span></a></li>
-                        <li><a>Período: <span class="pull-right badge  bg-blue"> {{periodo}} meses</span></a></li>
-                        <li><a *ngIf="tipoTaxa ==='AOMES'">Taxa: <span class="pull-right badge  bg-blue">{{taxa}} % ao
-                              Mês</span></a>
-                          <a *ngIf="tipoTaxa ==='AOANO'">Taxa: <span class="pull-right badge  bg-blue">
-                              {{taxa}} % ao ano, equivale a {{taxaTransformada
-                              | number:
-                              "1.2-2"}} % ao mes</span></a>
-                        </li>
-                        <li><a>Juros: <span class="pull-right badge  bg-blue">{{parcelaTotal.juros | number:
-                              "1.2-2"}}</span></a></li>
-                        <li><a>Total a Pagar: <span class="pull-right badge  bg-blue">{{parcelaTotal.prestacao | number:
-                              "1.2-2"}}</span></a></li>
-                      </ul>
+                    <div class="col-sm-5">
+                      <input currencyMask name="valor" [(ngModel)]="valor" class="form-control input-sm"
+                        [options]="{allowNegative: false }" required />
                     </div>
                   </div>
-                  <h4>Detalhamento</h4>
+                  <div class="form-group">
+                    <label class="col-sm-1">
+                      Taxa:
+                    </label>
+                    <div class="col-sm-1">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" required [disabled]="calculado === true" name="tipoTaxa"
+                            [(ngModel)]="tipoTaxa" id="optionsRadios1" value="AOMES" checked="">
+                          % Ao Mês
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="tipoTaxa" [(ngModel)]="tipoTaxa" id="optionsRadios2" value="AOANO"
+                            checked="">
+                          % Ao Ano
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <input currencyMask name="taxa" [(ngModel)]="taxa" class="form-control input-sm"
+                        [options]="{allowNegative: false }" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3">
+                      Período (Número de Meses):
+                    </label>
+
+                    <div class="col-sm-2">
+                      <input currencyMask name="periodo" [(ngModel)]="periodo" class="form-control input-sm"
+                        [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                        [disabled]="priceForm.invalid" (click)="calcular()">Calcular</button>
+                      <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                        [disabled]="priceForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
+                    </div>
+                  </div>
+                  <div *ngIf="parcelas.length" class="row">
+                    <div class="col-md-12">
+                      <h4>Resumo</h4>
+                      <div class="box box-widget widget-user-2">
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li><a>Valor do Financiamento: <span class="pull-right badge bg-blue">{{valor | number:
+                                  "1.2-2"}}</span></a></li>
+                            <li><a>Período: <span class="pull-right badge  bg-blue"> {{periodo}} meses</span></a></li>
+                            <li><a *ngIf="tipoTaxa ==='AOMES'">Taxa: <span class="pull-right badge  bg-blue">{{taxa}} %
+                                  ao
+                                  Mês</span></a>
+                              <a *ngIf="tipoTaxa ==='AOANO'">Taxa: <span class="pull-right badge  bg-blue">
+                                  {{taxa}} % ao ano, equivale a {{taxaTransformada
+                                  | number:
+                                  "1.2-2"}} % ao mes</span></a>
+                            </li>
+                            <li><a>Juros: <span class="pull-right badge  bg-blue">{{parcelaTotal.juros | number:
+                                  "1.2-2"}}</span></a></li>
+                            <li><a>Total a Pagar: <span class="pull-right badge  bg-blue">{{parcelaTotal.prestacao |
+                                  number:
+                                  "1.2-2"}}</span></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <h4>Detalhamento</h4>
+                    </div>
+                  </div>
+
+
+                  <div class="box-body no-padding">
+                    <div class='table-responsive'>
+                      <table *ngIf="parcelas.length" class="table table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Parcela N</th>
+                            <th>Prestação</th>
+                            <th>Juros</th>
+                            <th>Amortização</th>
+                            <th>Saldo Devedor</th>
+                          </tr>
+                          <tr *ngFor="let parcela of parcelas">
+                            <td><span *ngIf="parcela.id === undefined"><b>Total</b></span>{{parcela.id}}</td>
+                            <td>R$ {{parcela.prestacao | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.juros | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.amortizacao | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.saldoDevedor | number: "1.2-2"}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Tabela Price: Entendendo os Fundamentos e Implicações</h3>
+              </div>
+              <div class="box-body">
+                <p>
+                  A Tabela Price é um conceito amplamente utilizado no mundo das finanças e empréstimos
+                  especialmente no contexto de amortização de empréstimos de longo prazo, como hipotecas e
+                  financiamentos.
+                  Esta abordagem de amortização, também
+                  conhecida como Sistema Francês de Amortização, é amplamente aplicada por instituições financeiras em
+                  todo
+                  o mundo devido à sua simplicidade e previsibilidade. Neste artigo, exploraremos os fundamentos da
+                  Tabela
+                  Price, discutiremos seu funcionamento, vantagens, desvantagens e também examinaremos suas implicações
+                  mais
+                  amplas no campo financeiro.</p>
 
+                <h4>Entendendo a Tabela Price </h4>
 
-              <div class="box-body no-padding">
-                <div class='table-responsive'>
-                  <table *ngIf="parcelas.length" class="table table-striped">
-                    <tbody>
-                      <tr>
-                        <th>Parcela N</th>
-                        <th>Prestação</th>
-                        <th>Juros</th>
-                        <th>Amortização</th>
-                        <th>Saldo Devedor</th>
-                      </tr>
-                      <tr *ngFor="let parcela of parcelas">
-                        <td><span *ngIf="parcela.id === undefined"><b>Total</b></span>{{parcela.id}}</td>
-                        <td>R$ {{parcela.prestacao | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.juros | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.amortizacao | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.saldoDevedor | number: "1.2-2"}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <p>A Tabela Price, nomeada após seu criador, o economista britânico Richard Price,
+                  é um método utilizado para calcular as parcelas mensais de empréstimos com amortização constante ao
+                  longo
+                  do tempo. A ideia central por trás da Tabela Price é que, ao longo da duração do empréstimo, a parcela
+                  mensal permanece constante, mas a composição entre os juros e a amortização principal muda. Nos
+                  estágios
+                  iniciais, uma proporção significativa da parcela é direcionada para o pagamento dos juros, enquanto no
+                  decorrer do tempo, a parcela passa a compreender uma proporção maior destinada à redução do principal.
+                </p>
+
+                <h4>Funcionamento da Tabela Price </h4>
+                <p>O funcionamento da Tabela Price baseia-se na aplicação da fórmula
+                  matemática que calcula o valor das parcelas mensais. A fórmula considera o montante principal do
+                  empréstimo (P), a taxa de juros (i) e o número de parcelas (n). A fórmula geral é a seguinte:</p>
+
+                <p><b>PMT = P ⋅ i ⋅ ( 1 + i ) ^ n / ( 1 + i ) ^ n - 1</b></p>
+
+                <p>Onde:</p>
+
+                <p>PMT é o valor da parcela mensal.<br>
+                  P é o montante principal do empréstimo.<br>
+                  i é a taxa de juros mensal.<br>
+                  n é o número total de parcelas.<br></p>
+
+                <p>Através desta fórmula, podemos calcular o valor da parcela
+                  mensal constante que inclui tanto o pagamento dos juros quanto a amortização do principal.</p>
+
+                <h4>Vantagens da Tabela Price</h4>
+                <p>A Tabela Price oferece várias vantagens que a tornam atraente tanto para
+                  mutuários quanto para instituições financeiras:</p>
+
+                <p><b>Previsibilidade:</b> A maior vantagem da Tabela Price é a previsibilidade das parcelas mensais.
+                  Isso
+                  permite
+                  que os mutuários planejem seus orçamentos de forma mais eficaz, pois sabem exatamente quanto
+                  precisarão
+                  pagar a cada mês.</p>
+
+                <p><b>Simplicidade:</b> A fórmula da Tabela Price é relativamente simples, facilitando os cálculos tanto
+                  para as
+                  instituições financeiras quanto para os mutuários.</p>
+
+                <p><b>Amortização Gradual:</b> A Tabela Price garante que uma parte do pagamento mensal seja direcionada
+                  para a
+                  redução do principal, o que gradualmente diminui o montante devido ao longo do tempo.</p>
+
+                <h4>Desvantagens da Tabela Price</h4>
+                <p>Apesar das vantagens, a Tabela Price também apresenta algumas desvantagens:
+                </p>
+
+                <p><b>Juros Iniciais Elevados:</b> Nos estágios iniciais do empréstimo, a maior parte da parcela
+                  destina-se
+                  ao
+                  pagamento dos juros, o que significa que a redução do principal é relativamente lenta.</p>
+
+                <p><b>Custo Total Mais Elevado:</b> Devido à alocação inicialmente maior para juros, o custo total do
+                  empréstimo ao
+                  longo do tempo pode ser mais elevado em comparação com outros métodos de amortização.</p>
+
+                <p><b>Falta de Flexibilidade:</b> A Tabela Price não oferece muita flexibilidade para mutuários que
+                  desejam
+                  fazer
+                  pagamentos antecipados ou acelerar a amortização.</p>
+
+                <h4>Implicações Mais Amplas</h4>
+                <p>A Tabela Price tem implicações significativas no cenário financeiro e econômico:
+                </p>
+
+                <p>Mercado Imobiliário: A Tabela Price é amplamente utilizada em hipotecas, o que influencia o mercado
+                  imobiliário. A previsibilidade das parcelas pode tornar a compra de imóveis mais acessível, mas também
+                  pode levar a bolhas imobiliárias se não for cuidadosamente monitorada.</p>
+
+                <p>Estabilidade Financeira: A previsibilidade das parcelas ajuda a manter a estabilidade financeira dos
+                  mutuários, mas, ao mesmo tempo, pode aumentar a exposição ao risco para as instituições financeiras,
+                  especialmente em períodos de instabilidade econômica.</p>
+
+                <p>Planejamento Financeiro: A Tabela Price é uma ferramenta valiosa para o planejamento financeiro de
+                  indivíduos e famílias. No entanto, é crucial que os mutuários compreendam completamente os termos e as
+                  implicações do empréstimo.</p>
+
+                <p>A Tabela Price desempenha um papel fundamental no mundo das finanças e empréstimos,
+                  proporcionando previsibilidade e simplicidade para mutuários e instituições financeiras. Embora tenha
+                  vantagens notáveis, como previsibilidade das parcelas e amortização gradual, também possui
+                  desvantagens,
+                  incluindo juros iniciais elevados e custo total potencialmente mais alto. As implicações mais amplas
+                  da
+                  Tabela Price se estendem ao mercado imobiliário, à estabilidade financeira e ao planejamento
+                  financeiro
+                  individual. Portanto, ao considerar um empréstimo com Tabela Price, é crucial compreender suas
+                  complexidades e implicações para tomar decisões financeiras informadas e prudentes.</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Conceito</h3>
-          </div>
-          <div class="box-body">
-            <p>A tabela Price é uma forma de pagamento de um financiamento que é bastante utilizada no mercado
-              financeiro.
-              Nesse sistema, o valor das parcelas é composto por uma parte de amortização e outra de juros,
-              sendo que a proporção entre as duas é constante ao longo de todo o período de financiamento.
-              Isso significa que a cada mês, a parcela paga pelo tomador de empréstimo é composta por uma parte de juros
-              e uma parte de amortização,
-              sendo que a proporção entre as duas permanece constante ao longo do período de financiamento.</p>
-
-            <p>Na tabela Price, a amortização é calculada de forma que o valor das prestações mensais
-              permaneça constante ao longo de todo o período de financiamento. Os juros são calculados
-              multiplicando-se o saldo devedor do mês anterior pela taxa de juros, enquanto a amortização é calculada
-              subtraindo-se a parte dos juros da parcela total.</p>
-
-            <p>A principal vantagem da tabela Price é que ela oferece ao tomador de empréstimo a previsibilidade do
-              valor das prestações mensais,
-              o que facilita o planejamento financeiro. Além disso, essa forma de pagamento pode ser vantajosa para quem
-              precisa de um fluxo
-              de caixa mais estável e prefere prestações mensais com valores iguais.</p>
-
-            <p>Em resumo, a tabela Price é uma forma de pagamento de um financiamento em que o valor das prestações
-              mensais
-              permanece constante ao longo de todo o período de financiamento. As parcelas são compostas por uma parte
-              de juros e
-              uma parte de amortização, sendo que a proporção entre as duas permanece constante. A tabela Price é uma
-              forma
-              de pagamento que oferece previsibilidade ao tomador de empréstimo e pode ser vantajosa para quem precisa
-              de um fluxo de caixa mais estável.</p>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
-  {{priceForm.value | json}}
+    <div class="col-md-3">
+      <app-menu-lateral></app-menu-lateral>
+    </div>
+  </div>
+
 </section>

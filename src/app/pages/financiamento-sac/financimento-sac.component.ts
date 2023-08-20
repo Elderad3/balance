@@ -2,6 +2,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
 
 export class Parcela {
   id: number
@@ -19,8 +20,7 @@ export class Parcela {
 
 export class FinanciamentoSacComponent implements OnInit {
 
-  titulo: string = 'Financiamento SAC'
-
+  menuContext: MenuContext = { titulo: 'Financiamento Tabela SAC', descricao: 'Calcule de financiamento pelo sistema SAC', modulo: 'Financeiro' }
   taxa: number
   tipoTaxa: string = 'AOMES'
   taxaTransformada: number = 0
@@ -38,9 +38,9 @@ export class FinanciamentoSacComponent implements OnInit {
   constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.titulo);
+    this.titleService.setTitle(this.menuContext.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo sistema SAC (Sistema de Amortização Constante)' }
+      { name: 'description', content: this.menuContext.descricao }
     );
 
   }

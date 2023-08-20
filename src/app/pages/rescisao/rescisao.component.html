@@ -1,166 +1,174 @@
-<section class="content-header">
-  <h1>
-    Cálculo de Rescisão de Contrato de Trabalho
-    <small>Cálculo detalhado de rescisão de contrato de trabalho.</small>
-  </h1>
-</section>
+<app-menu-context [menuContext]="menuContext"></app-menu-context>
 <section class="content">
-  <div class="box box-primary">
-    <div class="box-header">
-      <h3 class="box-title">Rescisão</h3>
-    </div>
-    <div class="form-horizontal">
-      <div class="box-body">
-        <div class="row">
-          <div class="form-horizontal">
-            <form autocomplete="off" #rescisaoForm="ngForm" id="rescisaoForm" [ngFormOptions]="{ updateOn: 'change'}">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="col-sm-3"> Data Início: </label>
-                  <div class="col-sm-5">
-                    <input class="form-control input-sm" type="date" name="dataInicio" [(ngModel)]="rescisao.dataInicio"
-                      (blur)="validarDataInicial()" required max="9999-12-31" #dataInicio="ngModel"
-                      style="text-align: right;">
-                    <div *ngIf="dataInicio.invalid && (dataInicio.dirty || dataInicio.touched)" class="text-red">
-                      <span *ngIf="dataInicio.errors['incorrect']">Data inválida.</span>
-                      <span *ngIf="dataInicio.errors['required']">Campo requerido</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3"> Data Fim: </label>
-                  <div class="col-sm-5">
-                    <input class="form-control input-sm" type="date" (blur)="validarDataFinal()" name="dataFim"
-                      [(ngModel)]="rescisao.dataFim" required max="9999-12-31" #dataFim="ngModel"
-                      style="text-align: right;">
-                    <div *ngIf="dataFim.invalid && (dataFim.dirty || dataFim.touched)" class="text-red">
-                      <span *ngIf="dataFim.errors['ismenor']">Data final não pode ser menor que data inicial.</span>
-                      <span *ngIf="dataFim.errors['incorrect']">Data inválida.</span>
-                      <span *ngIf="dataFim.errors['required']">Campo requerido</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3">Motivo: </label>
-                  <div class="col-sm-5">
-                    <select class="form-control input-sm" name="motivo" [(ngModel)]="rescisao.motivo" required
-                      (change)="loadAvisoPrevio()">
-                      <option [value]="motivo.valor" *ngFor="let motivo of motivosRescisao">{{motivo.nome}}</option>
-                    </select>
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="col-sm-4"> Valor do Último Salário Bruto: </label>
-                  <div class="col-sm-3">
-                    <input class="form-control input-sm" currencyMask [options]="{allowNegative: false }"
-                      name="ultimoSalario" [(ngModel)]="rescisao.ultimoSalario" #ultimo="ngModel" required
-                      style="text-align: right;">
-                    <span *ngIf="ultimo.invalid && (ultimo.dirty || ultimo.touched)" class="text-red">Informe um
-                      valor</span>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-3">Aviso prévio: </label>
-                  <div class="col-sm-4">
-                    <select class="form-control  input-sm" name="avisoPrevio" [(ngModel)]="rescisao.avisoPrevio"
-                      required>
-                      <option [value]="avisoPrevio.valor" *ngFor="let avisoPrevio of avisosPrevios">
-                        {{avisoPrevio.nome}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-4"> Número de filhos: </label>
-                  <div class="col-sm-3">
-                    <input class="form-control input-sm" type="text" name="filhos" [(ngModel)]="rescisao.filhos"
-                      #filho="ngModel" required minlength="0" maxlength="2" pattern="[0-9]+$"
-                      style="text-align: right;">
-                    <span *ngIf="filho.invalid && (filho.dirty || filho.touched)" class="text-red">Valor inválido</span>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
+  <div class="row">
+    <div class="col-md-9">
+      <div class="box box-primary">
+        <div class="box-header">
+          <h3 class="box-title">Rescisão</h3>
         </div>
-        <div class="row">
-          <div class="col-md-4">
-            <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
-              [disabled]="rescisaoForm.invalid || this.calculado === true" (click)="calcular()">Calcular</button>
-            <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
-              [disabled]="rescisaoForm.invalid" (click)="limparFormulario()">Limpar</button>
-          </div>
+        <div class="form-horizontal">
+          <div class="box-body">
+            <div class="row">
+              <div class="form-horizontal">
+                <form autocomplete="off" #rescisaoForm="ngForm" id="rescisaoForm"
+                  [ngFormOptions]="{ updateOn: 'change'}">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="col-sm-3"> Data Início: </label>
+                      <div class="col-sm-5">
+                        <input class="form-control input-sm" type="date" name="dataInicio"
+                          [(ngModel)]="rescisao.dataInicio" (blur)="validarDataInicial()" required max="9999-12-31"
+                          #dataInicio="ngModel" style="text-align: right;">
+                        <div *ngIf="dataInicio.invalid && (dataInicio.dirty || dataInicio.touched)" class="text-red">
+                          <span *ngIf="dataInicio.errors['incorrect']">Data inválida.</span>
+                          <span *ngIf="dataInicio.errors['required']">Campo requerido</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3"> Data Fim: </label>
+                      <div class="col-sm-5">
+                        <input class="form-control input-sm" type="date" (blur)="validarDataFinal()" name="dataFim"
+                          [(ngModel)]="rescisao.dataFim" required max="9999-12-31" #dataFim="ngModel"
+                          style="text-align: right;">
+                        <div *ngIf="dataFim.invalid && (dataFim.dirty || dataFim.touched)" class="text-red">
+                          <span *ngIf="dataFim.errors['ismenor']">Data final não pode ser menor que data inicial.</span>
+                          <span *ngIf="dataFim.errors['incorrect']">Data inválida.</span>
+                          <span *ngIf="dataFim.errors['required']">Campo requerido</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3">Motivo: </label>
+                      <div class="col-sm-5">
+                        <select class="form-control input-sm" name="motivo" [(ngModel)]="rescisao.motivo" required
+                          (change)="loadAvisoPrevio()">
+                          <option [value]="motivo.valor" *ngFor="let motivo of motivosRescisao">{{motivo.nome}}</option>
+                        </select>
 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="col-sm-5"> Valor do Último Salário Bruto: </label>
+                      <div class="col-sm-5">
+                        <input class="form-control input-sm" currencyMask [options]="{allowNegative: false }"
+                          name="ultimoSalario" [(ngModel)]="rescisao.ultimoSalario" #ultimo="ngModel" required
+                          style="text-align: right;">
+                        <span *ngIf="ultimo.invalid && (ultimo.dirty || ultimo.touched)" class="text-red">Informe um
+                          valor</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-5">Aviso prévio: </label>
+                      <div class="col-sm-5">
+                        <select class="form-control  input-sm" name="avisoPrevio" [(ngModel)]="rescisao.avisoPrevio"
+                          required>
+                          <option [value]="avisoPrevio.valor" *ngFor="let avisoPrevio of avisosPrevios">
+                            {{avisoPrevio.nome}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-5"> Número de filhos: </label>
+                      <div class="col-sm-5">
+                        <input class="form-control input-sm" type="text" name="filhos" [(ngModel)]="rescisao.filhos"
+                          #filho="ngModel" required minlength="0" maxlength="2" pattern="[0-9]+$"
+                          style="text-align: right;">
+                        <span *ngIf="filho.invalid && (filho.dirty || filho.touched)" class="text-red">Valor
+                          inválido</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                  [disabled]="rescisaoForm.invalid || this.calculado === true" (click)="calcular()">Calcular</button>
+                <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                  [disabled]="rescisaoForm.invalid" (click)="limparFormulario()">Limpar</button>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
+      <div *ngIf="calculado" class="box box-primary">
+        <div class="box-header">
+          <h3 class="box-title">Detalhamento</h3>
+        </div>
+        <div class="box-body no-padding">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th>Rubrica</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th style="width: 60%">Memória de Cálculo</th>
+              </tr>
+              <tr *ngFor="let verba of verbas">
+                <td>{{verba.rubrica}}</td>
+                <td>{{verba.tipo}}</td>
+                <td>{{verba.valor | number: "1.2-2"}}</td>
+                <td>{{verba.memoriaCalculo}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a><i class="fa fa-circle-o text-light-blue">
+                </i><b>Vantagens: {{totalVantagens | number: "1.2-2"}} </b>
+                <p><span *ngFor="let v  of vantagens"> {{v.rubrica}}: {{v.valor | number: "1.2-2"}} | </span></p>
+              </a>
+            </li>
+            <li>
+              <a>
+                <i class="fa fa-circle-o text-red"></i>
+                <b>Descontos: {{totalDescontos | number: "1.2-2"}} </b>
+                <p><span *ngFor="let d of descontos"> {{d.rubrica}}: {{d.valor | number: "1.2-2"}} | </span></p>
+              </a>
+            </li>
+            <li><a><i class="fa fa-circle-o text-light-blue">
+                </i><b>Líquido a Receber: {{totalVantagens - totalDescontos | number: "1.2-2"}}</b>
+                <p *ngIf="rescisao.motivo === 'DISPENSACOMJUSTACAUSA'">O empregado não terá direito ao aviso prévio, à
+                  indenização compensatória de 40% sobre o saldo do FGTS,
+                  nem ao seguro-desemprego. Além disso, o empregador pode requerer o ressarcimento dos prejuízos
+                  causados
+                  pela falta grave cometida pelo empregado,
+                  mediante ação judicial específica.</p>
+                <p *ngIf="rescisao.motivo === 'DISPENSASEMJUSTACAUSA'">Além dos valores das verbas rescisórias acima, o
+                  empregador deve efetuar o depósito do saldo do
+                  Fundo de Garantia do Tempo de Serviço (FGTS)
+                  na conta do empregado, acrescido da multa de 40% sobre o saldo do FGTS.
+                  Para ter direito ao seguro-desemprego, o trabalhador precisa atender a alguns requisitos, tais como:
+                  Ter sido dispensado sem justa causa;
+                  Ter recebido salários de pessoa jurídica ou pessoa física equiparada à jurídica, durante pelo menos 12
+                  meses nos últimos 18 meses antes da data da dispensa;
+                  Não estar recebendo benefício previdenciário de prestação continuada, com exceção do auxílio-acidente
+                  e
+                  pensão por morte;
+                  Não possuir renda própria suficiente para o seu sustento e de sua família.</p>
+                <p *ngIf="rescisao.motivo === 'PEDIDODEDEMISSAO'">
+                  Em geral, o trabalhador que pede demissão não tem direito ao seguro desemprego nem à multa de 40%
+                  sobre
+                  o saldo do FGTS
+                  mas pode ter direito a sacar o saldo da conta vinculada do FGTS, acrescido de eventuais rendimentos,
+                  desde que respeitadas as condições previstas na legislação.
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <app-rescisao-conceito></app-rescisao-conceito>
+    </div>
+    <div class="col-md-3">
+      <app-menu-lateral></app-menu-lateral>
     </div>
   </div>
-  <div *ngIf="calculado" class="box box-primary">
-    <div class="box-header">
-      <h3 class="box-title">Detalhamento</h3>
-    </div>
-    <div class="box-body no-padding">
-      <table class="table table-striped">
-        <tbody>
-          <tr>
-            <th>Rubrica</th>
-            <th>Tipo</th>
-            <th>Valor</th>
-            <th style="width: 60%">Memória de Cálculo</th>
-          </tr>
-          <tr *ngFor="let verba of verbas">
-            <td>{{verba.rubrica}}</td>
-            <td>{{verba.tipo}}</td>
-            <td>{{verba.valor | number: "1.2-2"}}</td>
-            <td>{{verba.memoriaCalculo}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a><i class="fa fa-circle-o text-light-blue">
-            </i><b>Vantagens: {{totalVantagens | number: "1.2-2"}} </b>
-            <p><span *ngFor="let v  of vantagens"> {{v.rubrica}}: {{v.valor | number: "1.2-2"}} | </span></p>
-          </a>
-        </li>
-        <li>
-          <a>
-            <i class="fa fa-circle-o text-red"></i>
-            <b>Descontos: {{totalDescontos | number: "1.2-2"}} </b>
-            <p><span *ngFor="let d of descontos"> {{d.rubrica}}: {{d.valor | number: "1.2-2"}} | </span></p>
-          </a>
-        </li>
-        <li><a><i class="fa fa-circle-o text-light-blue">
-            </i><b>Líquido a Receber: {{totalVantagens - totalDescontos | number: "1.2-2"}}</b>
-            <p *ngIf="rescisao.motivo === 'DISPENSACOMJUSTACAUSA'">O empregado não terá direito ao aviso prévio, à
-              indenização compensatória de 40% sobre o saldo do FGTS,
-              nem ao seguro-desemprego. Além disso, o empregador pode requerer o ressarcimento dos prejuízos causados
-              pela falta grave cometida pelo empregado,
-              mediante ação judicial específica.</p>
-            <p *ngIf="rescisao.motivo === 'DISPENSASEMJUSTACAUSA'">Além dos valores das verbas rescisórias acima, o
-              empregador deve efetuar o depósito do saldo do
-              Fundo de Garantia do Tempo de Serviço (FGTS)
-              na conta do empregado, acrescido da multa de 40% sobre o saldo do FGTS.
-              Para ter direito ao seguro-desemprego, o trabalhador precisa atender a alguns requisitos, tais como:
-              Ter sido dispensado sem justa causa;
-              Ter recebido salários de pessoa jurídica ou pessoa física equiparada à jurídica, durante pelo menos 12
-              meses nos últimos 18 meses antes da data da dispensa;
-              Não estar recebendo benefício previdenciário de prestação continuada, com exceção do auxílio-acidente e
-              pensão por morte;
-              Não possuir renda própria suficiente para o seu sustento e de sua família.</p>
-            <p *ngIf="rescisao.motivo === 'PEDIDODEDEMISSAO'">
-              Em geral, o trabalhador que pede demissão não tem direito ao seguro desemprego nem à multa de 40% sobre
-              o saldo do FGTS
-              mas pode ter direito a sacar o saldo da conta vinculada do FGTS, acrescido de eventuais rendimentos,
-              desde que respeitadas as condições previstas na legislação.
-            </p>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <app-rescisao-conceito></app-rescisao-conceito>
+
 </section>

@@ -4,6 +4,7 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Rescisao, Verba } from 'src/app/shared/models/rescisao.model';
 import { RescisaoService } from './rescisao.service';
+import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
 
 @Component({
   selector: 'app-rescisao',
@@ -12,7 +13,7 @@ import { RescisaoService } from './rescisao.service';
 
 export class RescisaoComponent implements OnInit {
 
-  titulo: string = 'Cálculo Rescisão Contrato de Trabalho'
+  menuContext: MenuContext = { titulo: 'Cálculo Rescisão Contrato de Trabalho', descricao: 'Cálculo detalhado de rescisão de contrato de trabalho', modulo: 'Trabalhista' }
   rescisao: Rescisao
   motivosRescisao: any[] = []
   avisosPrevios: any[] = []
@@ -30,9 +31,9 @@ export class RescisaoComponent implements OnInit {
   constructor(private titleService: Title, private metaService: Meta, private rescisaoService: RescisaoService) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.titulo);
+    this.titleService.setTitle(this.menuContext.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Cálculo detalhado de rescisão de contrato de trabalho.' }
+      { name: 'description', content: this.menuContext.descricao }
     );
     this.rescisao = new Rescisao()
     this.motivosRescisao = this.rescisaoService.motivosRescisao()

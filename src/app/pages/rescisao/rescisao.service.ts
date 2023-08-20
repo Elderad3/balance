@@ -18,7 +18,7 @@ export class RescisaoService {
             rubrica: "Saldo de Salário",
             tipo: "Vantagem",
             valor: saldo,
-            memoriaCalculo: `Último salário / 30 x ${totalDias} = ${saldo.toFixed(2)} `,
+            memoriaCalculo: `Último salário / 30 x ${totalDias} = ${this.formatBRL(saldo)} `,
         }, inss, ir]
     }
 
@@ -66,8 +66,8 @@ export class RescisaoService {
             rubrica: "Ferias Proporcionais + 1/3",
             tipo: "Vantagem",
             valor: totalFerias,
-            memoriaCalculo: `${mesesAReceber}/12 avos do último salário = ${valorFerias.toFixed(2)} + 
-            um terço: ${umTerco.toFixed(2)} = ${totalFerias.toFixed(2)}`,
+            memoriaCalculo: `${mesesAReceber}/12 avos do último salário = ${this.formatBRL(valorFerias)} + 
+            um terço: ${this.formatBRL(umTerco)} = ${this.formatBRL(totalFerias)}`,
         }, inss, ir]
     }
 
@@ -85,8 +85,8 @@ export class RescisaoService {
         return {
             tipo: "Desconto",
             valor: inss,
-            memoriaCalculo: `Teto de contribuição vigente: 7.507,00. Base de Calculo: ${salarioBruto.toFixed(2)} x 
-            Alíquota: ${aliquota} - Dedução: ${deducao} = 
+            memoriaCalculo: `Teto de contribuição vigente: 7.507,00. Base de Calculo: ${this.formatBRL(salarioBruto)} x 
+            Alíquota: ${this.formatBRL(aliquota)} - Dedução: ${this.formatBRL(deducao)} = 
             ${inss.toFixed(2)}`
         }
     }
@@ -107,9 +107,9 @@ export class RescisaoService {
         return {
             tipo: "Desconto",
             valor: ir,
-            memoriaCalculo: `Base de Calculo:(${salarioBruto.toFixed(2)} - 
-            Inss: ${inss.toFixed(2)} - Dedução por Dependente: ${deducaoDependentes.toFixed(2)} = ${baseDeCalculo.toFixed(2)}) x 
-            Alíquota: ${aliquota} - Dedução: ${deducao} = ${ir.toFixed(2)}`
+            memoriaCalculo: `Base de Calculo:(${this.formatBRL(salarioBruto)} - 
+            Inss: ${inss.toFixed(2)} - Dedução por Dependente: ${this.formatBRL(deducaoDependentes)} = ${this.formatBRL(baseDeCalculo)}) x 
+            Alíquota: ${this.formatBRL(aliquota)} - Dedução: ${this.formatBRL(deducao)} = ${this.formatBRL(ir)}`
         }
     }
 
@@ -136,9 +136,9 @@ export class RescisaoService {
                 rubrica: "Aviso Prévio",
                 tipo: "Vantagem",
                 valor: avisoPrevioProporcional,
-                memoriaCalculo: `${tempoServico.toFixed(2)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
-                último salário / 30 x ${diasAvisoPrevioProporcional}: ${((salario / 30) * diasAvisoPrevioProporcional).toFixed(2)} + 13° av. prévio: ${decimoTerceiroAvisoPrevio.toFixed(2)} + 
-                Ferias av. Prévio: ${feriasAvisoPrevio.toFixed(2)}  = ${avisoPrevioProporcional.toFixed(2)}`,
+                memoriaCalculo: `${this.formatBRL(tempoServico)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
+                último salário / 30 x ${diasAvisoPrevioProporcional}: ${this.formatBRL(((salario / 30) * diasAvisoPrevioProporcional))} + 13° av. prévio: ${this.formatBRL(decimoTerceiroAvisoPrevio)} + 
+                Ferias av. Prévio: ${this.formatBRL(feriasAvisoPrevio)}  = ${this.formatBRL(avisoPrevioProporcional)}`,
             }, inss, ir]
         }
         return undefined
@@ -170,8 +170,8 @@ export class RescisaoService {
                 rubrica: "Salário Família",
                 tipo: "Vantagem",
                 valor: valor,
-                memoriaCalculo: `Renda dentro do teto de ${rendaMaxima}, ${rescisao.filhos} filhos x
-            ${valorMaximo} por filho = ${valor} `,
+                memoriaCalculo: `Renda dentro do teto de ${this.formatBRL(rendaMaxima)}, ${rescisao.filhos} filhos x
+            ${valorMaximo} por filho = ${this.formatBRL(valor)} `,
             }
         }
         return undefined
@@ -204,5 +204,10 @@ export class RescisaoService {
             date.getUTCSeconds(),
             date.getUTCMilliseconds());
         return date
+    }
+
+    formatBRL(valor: number) {
+        let valorFormatado = valor.toLocaleString('pt-br', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
+        return valorFormatado
     }
 }

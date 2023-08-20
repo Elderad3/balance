@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { PorcentagemService } from './porcentagem.service';
+import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
 
 export class Calculo {
   porcentagem: number
@@ -18,9 +19,7 @@ export class Calculo {
 })
 
 export class PorcentagemComponent implements OnInit {
-
-  titulo: string = 'Calculadora de porcentagem'
-
+  menuContext: MenuContext = { titulo: 'Calculadora de porcentagem', descricao: 'Calcule porcentagem de formas variadas', modulo: 'Financeiro' }
   calculo1: Calculo = { porcentagem: 0, numero1: 0, numero2: 0, calculado: false, metodo: 1 }
   calculo2: Calculo = { porcentagem: 0, numero1: 0, numero2: 0, calculado: false, metodo: 2 }
   calculo3: Calculo = { porcentagem: 0, numero1: 0, numero2: 0, calculado: false, metodo: 3 }
@@ -41,9 +40,9 @@ export class PorcentagemComponent implements OnInit {
   constructor(private titleService: Title, private metaService: Meta, private porcentagemService: PorcentagemService) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.titulo);
+    this.titleService.setTitle(this.menuContext.titulo);
     this.metaService.updateTag(
-      { name: 'description', content: 'Calcule porcentagem de formas variadas.' }
+      { name: 'description', content: this.menuContext.descricao }
     );
 
   }

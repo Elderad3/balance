@@ -1,160 +1,236 @@
-<section class="content-header">
-  <h1>
-    Cálculo de Financiamento SAC
-    <small>Calcule prestações, juros, amortização e saldo devedor de um financiamento pelo Sistema SAC (Sistema de
-      Amortização
-      Constante)</small>
-  </h1>
-</section>
+<app-menu-context [menuContext]="menuContext"></app-menu-context>
 <section class="content">
-  <form class="form-horizontal" autocomplete="off" #sacForm="ngForm" id="contaForm"
-    [ngFormOptions]="{ updateOn: 'change' }">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Tabela SAC</h3>
-          </div>
+  <div class="row">
+    <div class="col-md-9">
+      <form class="form-horizontal" autocomplete="off" #sacForm="ngForm" id="contaForm"
+        [ngFormOptions]="{ updateOn: 'change' }">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Tabela SAC</h3>
+              </div>
 
-          <div class="form-horizontal">
-            <div class="box-body">
-              <div class="form-group">
-                <label class="col-sm-2">
-                  Valor do Financiamento:
-                </label>
-                <div class="col-sm-3">
-                  <input currencyMask name="valor" [(ngModel)]="valor" class="form-control input-sm"
-                    [options]="{allowNegative: false }" required />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-1">
-                  Taxa:
-                </label>
-                <div class="col-sm-1">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" required [disabled]="calculado === true" name="tipoTaxa"
-                        [(ngModel)]="tipoTaxa" id="optionsRadios1" value="AOMES" checked="">
-                      % Ao Mês
+              <div class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label class="col-sm-2">
+                      Valor do Financiamento:
                     </label>
-                  </div>
-                </div>
-                <div class="col-sm-1">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="tipoTaxa" [(ngModel)]="tipoTaxa" id="optionsRadios2" value="AOANO"
-                        checked="">
-                      % Ao Ano
-                    </label>
-                  </div>
-                </div>
-                <div class="col-sm-2">
-                  <input currencyMask name="taxa" [(ngModel)]="taxa" class="form-control input-sm"
-                    [options]="{allowNegative: false }" required />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-3">
-                  Período (Número de Meses):
-                </label>
-
-                <div class="col-sm-2">
-                  <input currencyMask name="periodo" [(ngModel)]="periodo" class="form-control input-sm"
-                    [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
-                    [disabled]="sacForm.invalid" (click)="calcular()">Calcular</button>
-                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
-                    [disabled]="sacForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
-                </div>
-              </div>
-              <div *ngIf="parcelas.length" class="row">
-                <div class="col-md-12">
-                  <h4>Resumo</h4>
-                  <div class="box box-widget widget-user-2">
-                    <div class="box-footer no-padding">
-                      <ul class="nav nav-stacked">
-                        <li><a>Valor do Financiamento: <span class="pull-right badge bg-blue">{{valor | number:
-                              "1.2-2"}}</span></a></li>
-                        <li><a>Período: <span class="pull-right badge  bg-blue"> {{periodo}} meses</span></a></li>
-                        <li><a *ngIf="tipoTaxa ==='AOMES'">Taxa: <span class="pull-right badge  bg-blue">{{taxa}} % ao
-                              Mês</span></a>
-                          <a *ngIf="tipoTaxa ==='AOANO'">Taxa: <span class="pull-right badge  bg-blue">
-                              {{taxa}} % ao ano, equivale a {{taxaTransformada
-                              | number:
-                              "1.2-2"}} % ao mes</span></a>
-                        </li>
-                        <li><a>Juros: <span class="pull-right badge  bg-blue">{{parcelaTotal.juros | number:
-                              "1.2-2"}}</span></a></li>
-                        <li><a>Total a Pagar: <span class="pull-right badge  bg-blue">{{parcelaTotal.prestacao | number:
-                              "1.2-2"}}</span></a></li>
-                      </ul>
+                    <div class="col-sm-3">
+                      <input currencyMask name="valor" [(ngModel)]="valor" class="form-control input-sm"
+                        [options]="{allowNegative: false }" required />
                     </div>
                   </div>
-                  <h4>Detalhamento</h4>
+                  <div class="form-group">
+                    <label class="col-sm-1">
+                      Taxa:
+                    </label>
+                    <div class="col-sm-1">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" required [disabled]="calculado === true" name="tipoTaxa"
+                            [(ngModel)]="tipoTaxa" id="optionsRadios1" value="AOMES" checked="">
+                          % Ao Mês
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-1">
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="tipoTaxa" [(ngModel)]="tipoTaxa" id="optionsRadios2" value="AOANO"
+                            checked="">
+                          % Ao Ano
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <input currencyMask name="taxa" [(ngModel)]="taxa" class="form-control input-sm"
+                        [options]="{allowNegative: false }" required />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-3">
+                      Período (Número de Meses):
+                    </label>
+
+                    <div class="col-sm-2">
+                      <input currencyMask name="periodo" [(ngModel)]="periodo" class="form-control input-sm"
+                        [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                        [disabled]="sacForm.invalid" (click)="calcular()">Calcular</button>
+                      <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                        [disabled]="sacForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
+                    </div>
+                  </div>
+                  <div *ngIf="parcelas.length" class="row">
+                    <div class="col-md-12">
+                      <h4>Resumo</h4>
+                      <div class="box box-widget widget-user-2">
+                        <div class="box-footer no-padding">
+                          <ul class="nav nav-stacked">
+                            <li><a>Valor do Financiamento: <span class="pull-right badge bg-blue">{{valor | number:
+                                  "1.2-2"}}</span></a></li>
+                            <li><a>Período: <span class="pull-right badge  bg-blue"> {{periodo}} meses</span></a></li>
+                            <li><a *ngIf="tipoTaxa ==='AOMES'">Taxa: <span class="pull-right badge  bg-blue">{{taxa}} %
+                                  ao
+                                  Mês</span></a>
+                              <a *ngIf="tipoTaxa ==='AOANO'">Taxa: <span class="pull-right badge  bg-blue">
+                                  {{taxa}} % ao ano, equivale a {{taxaTransformada
+                                  | number:
+                                  "1.2-2"}} % ao mes</span></a>
+                            </li>
+                            <li><a>Juros: <span class="pull-right badge  bg-blue">{{parcelaTotal.juros | number:
+                                  "1.2-2"}}</span></a></li>
+                            <li><a>Total a Pagar: <span class="pull-right badge  bg-blue">{{parcelaTotal.prestacao |
+                                  number:
+                                  "1.2-2"}}</span></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <h4>Detalhamento</h4>
+                    </div>
+                  </div>
+
+
+                  <div class="box-body no-padding">
+                    <div class='table-responsive'>
+                      <table *ngIf="parcelas.length" class="table table-striped">
+                        <tbody>
+                          <tr>
+                            <th>Parcela N</th>
+                            <th>Prestação</th>
+                            <th>Juros</th>
+                            <th>Amortização</th>
+                            <th>Saldo Devedor</th>
+                          </tr>
+                          <tr *ngFor="let parcela of parcelas">
+                            <td><span *ngIf="parcela.id === undefined"><b>Total</b></span>{{parcela.id}}</td>
+                            <td>R$ {{parcela.prestacao | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.juros | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.amortizacao | number: "1.2-2"}}</td>
+                            <td>R$ {{parcela.saldoDevedor | number: "1.2-2"}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Tabela SAC: Explorando os Aspectos e Aplicações</h3>
+              </div>
+              <div class="box-body">
+                <p>A Tabela SAC, ou Sistema de Amortização Constante, é uma
+                  abordagem amplamente utilizada no mundo das finanças para calcular a amortização de empréstimos de
+                  longo
+                  prazo, como financiamentos imobiliários e empréstimos empresariais. Diferentemente da Tabela Price, o
+                  Sistema SAC distribui o pagamento da amortização de forma constante ao longo do período do empréstimo,
+                  o
+                  que resulta em parcelas decrescentes ao longo do tempo. Neste artigo, examinaremos em detalhes os
+                  fundamentos da Tabela SAC, seu funcionamento, vantagens, desvantagens e também analisaremos as
+                  implicações
+                  mais amplas dessa abordagem no cenário financeiro.</p>
+                <h4>Explorando a Tabela SAC </h4>
+                <p>A Tabela SAC, também conhecida como Amortização Constante ou Sistema de Parcelas
+                  Decrescentes, baseia-se na ideia de que a amortização do principal é constante a cada período. Isso
+                  significa que, à medida que o empréstimo é pago ao longo do tempo, a parcela destinada à amortização
+                  do
+                  principal permanece a mesma, enquanto a parcela destinada aos juros diminui gradualmente.</p>
+                <h4>Funcionamento da Tabela SAC</h4>
+                <p>O funcionamento da Tabela SAC é baseado em uma fórmula que calcula o valor da
+                  parcela mensal. A fórmula considera o montante principal do empréstimo (P), a taxa de juros (i) e o
+                  número
+                  de parcelas (n). A fórmula geral para calcular o valor da parcela é a seguinte:</p>
 
+                <p><b>PMT= P/n + P .i . (1 - k/n)</b></p>
 
-              <div class="box-body no-padding">
-                <div class='table-responsive'>
-                  <table *ngIf="parcelas.length" class="table table-striped">
-                    <tbody>
-                      <tr>
-                        <th>Parcela N</th>
-                        <th>Prestação</th>
-                        <th>Juros</th>
-                        <th>Amortização</th>
-                        <th>Saldo Devedor</th>
-                      </tr>
-                      <tr *ngFor="let parcela of parcelas">
-                        <td><span *ngIf="parcela.id === undefined"><b>Total</b></span>{{parcela.id}}</td>
-                        <td>R$ {{parcela.prestacao | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.juros | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.amortizacao | number: "1.2-2"}}</td>
-                        <td>R$ {{parcela.saldoDevedor | number: "1.2-2"}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <p>Onde:</p>
+
+                <p>PMT é o valor da parcela mensal.<br>
+                  P é o montante principal do empréstimo.<br>
+                  i é a taxa de juros mensal.<br>
+                  n é o número total de parcelas.<br>
+                  k é o número da parcela atual.<br></p>
+
+                <p>Através desta fórmula, a
+                  parcela mensal é calculada considerando uma parcela fixa de amortização do principal (P/n) e uma
+                  parcela variável referente aos juros ( P . i . (1 - k/n)).</p>
+                <h4>Vantagens da Tabela SAC</h4>
+                <p>A Tabela SAC oferece várias vantagens que a tornam uma escolha atrativa para
+                  muitos mutuários e instituições financeiras:</p>
+
+                <p><b>Juros Decrescentes: </b>Uma das principais vantagens da Tabela SAC é que os juros pagos diminuem
+                  ao
+                  longo do
+                  tempo. Isso resulta em economia de custos totais em relação a outras formas de amortização.</p>
+
+                <p><b>Transparência:</b> A abordagem da Tabela SAC é transparente, permitindo que os mutuários
+                  compreendam
+                  claramente a alocação de pagamentos entre juros e amortização principal.</p>
+
+                <p><b>Redução do Principal Rápida:</b> No início do empréstimo, uma parcela maior é destinada à
+                  amortização
+                  do
+                  principal, permitindo que o montante devido seja reduzido de forma mais rápida.</p>
+                <h4>Desvantagens da Tabela SAC</h4>
+                <p>Apesar das vantagens, a Tabela SAC também apresenta algumas desvantagens:</p>
+
+                <p><b>Parcelas Iniciais Mais Elevadas:</b> As parcelas iniciais da Tabela SAC são mais elevadas em
+                  comparação com a
+                  Tabela Price, o que pode dificultar o planejamento financeiro para alguns mutuários.</p>
+
+                <p><b>Menor Previsibilidade:</b> As parcelas decrescentes podem tornar o planejamento financeiro menos
+                  previsível
+                  em comparação com a Tabela Price.</p>
+
+                <p><b>Cálculos Complexos:</b> Embora a fórmula para calcular as parcelas seja relativamente simples, os
+                  cálculos ao
+                  longo do período do empréstimo podem se tornar mais complexos devido às parcelas variáveis de juros.
+                </p>
+                <h4>Implicações Mais Amplas </h4>
+                <p>A Tabela SAC tem implicações importantes no cenário financeiro e econômico:</p>
+
+                <p><b>Economia de Custos:</b> A Tabela SAC é frequentemente vista como uma forma de economizar em custos
+                  totais de
+                  empréstimos, uma vez que os juros diminuem ao longo do tempo.</p>
+
+                <p><b>Estabilidade Financeira:</b> A abordagem de parcelas decrescentes pode proporcionar estabilidade
+                  financeira
+                  aos mutuários, uma vez que a parcela mensal diminui gradualmente.</p>
+
+                <p><b>Impacto no Mercado Imobiliário:</b> A Tabela SAC pode influenciar o mercado imobiliário, pois
+                  torna os
+                  primeiros anos de pagamento mais desafiadores. Isso pode afetar a demanda por propriedades e impactar
+                  os
+                  preços.</p>
+
+                <p>A Tabela SAC é uma abordagem popular para a amortização de empréstimos de longo prazo,
+                  oferecendo vantagens como juros decrescentes e transparência nos pagamentos. Apesar das parcelas
+                  iniciais
+                  mais elevadas e da menor previsibilidade em comparação com a Tabela Price, a Tabela SAC é uma
+                  ferramenta
+                  valiosa para mutuários que desejam economizar custos ao longo do tempo. Suas implicações se estendem à
+                  economia como um todo, influenciando a estabilidade financeira e o mercado imobiliário. Ao considerar
+                  a
+                  Tabela SAC, é importante compreender seus aspectos e avaliar como eles se alinham às necessidades
+                  financeiras individuais.</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title">Conceito</h3>
-          </div>
-          <div class="box-body">
-            <p>A tabela SAC é uma forma de pagamento de um financiamento que é bastante utilizada no mercado financeiro.
-              Nesse sistema, o valor das parcelas é composto por uma parte de amortização e outra de juros, sendo que a
-              proporção entre as duas varia a cada mês. A cada mês, o valor da parcela permanece constante,
-              enquanto a proporção entre a parte de amortização e a parte de juros varia.</p>
-
-            <p>Na tabela SAC, a amortização é constante ao longo do período de financiamento e os juros são calculados
-              sobre o saldo devedor do mês anterior. Isso significa que a cada mês, a parcela paga pelo tomador
-              de empréstimo é composta por uma parte de juros, que é calculada com base no saldo devedor do mês
-              anterior,
-              e uma parte de amortização, que é constante.</p>
-
-            <p>A tabela SAC apresenta o valor das prestações mensais do financiamento,
-              bem como o valor dos juros e da amortização a cada mês. A amortização é calculada dividindo-se o valor
-              total
-              do financiamento pelo número de meses do prazo, enquanto os juros são
-              calculados multiplicando-se o saldo devedor do mês anterior pela taxa de juros.</p>
-
-            <p>Em resumo, a tabela SAC é uma forma de pagamento de um financiamento que apresenta valores de prestações,
-              juros e amortizações de forma organizada, permitindo que o tomador de empréstimo visualize claramente
-              o valor das prestações, dos juros e da amortização em cada mês do financiamento.
-              Isso permite que o tomador de empréstimo faça uma análise mais precisa das condições do financiamento
-              e avalie a viabilidade de realizar o pagamento antecipado das parcelas, por exemplo.</p>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
+    <div class="col-md-3">
+      <app-menu-lateral></app-menu-lateral>
+    </div>
+  </div>
+
+
 </section>

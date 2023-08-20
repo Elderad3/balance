@@ -1,145 +1,148 @@
-<section class="content-header">
-  <h1>
-    Calculadora de Porcentagem
-    <small>Calcule porcentagem de formas variadas com duas casas decimais</small>
-  </h1>
-</section>
+<app-menu-context [menuContext]="menuContext"></app-menu-context>
 <section class="content">
   <div class="row">
-    <div class="box box-primary">
-      <div class="box-header with-border">
-        <h3 class="box-title">Calculadora de porcentagem online</h3>
-      </div>
-
-      <div class="box-body">
-
-
-        <!-- Form 1 -->
-
-        <form class="form-inline" autocomplete="off" #porcentagem1Form1="ngForm" id="porcentagem1Form1"
-          [ngFormOptions]="{ updateOn: 'change' }">
-
-          <div class="form-group">
-            <label></label>
-            <input currencyMask name="calculo1_porcentagem" [(ngModel)]="calculo1.porcentagem"
-              class="form-control input-sm" [options]="{allowNegative: false }" required>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Calculadora de porcentagem online</h3>
           </div>
 
-          <div class="form-group">
-            <label class="margin-aply">% de</label>
-            <input currencyMask name="calculo1_numero1" [(ngModel)]="calculo1.numero1" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
-
-          <div class="form-group">
-            <label class="margin-aply">é igual a</label>
-            <input currencyMask name="calculo1_numero2" [(ngModel)]="calculo1.numero2" class="form-control input-sm"
-              [options]="{allowNegative: false }" readonly>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" [disabled]="porcentagem1Form1.invalid || calculo1.calculado" (click)="calcular(1)"
-              class="btn btn-block btn-primary btn-sm">Calcular</button>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" (click)="limpar(1)" class="btn btn-block btn-default btn-sm">Limpar</button>
-          </div>
-        </form>
-        <hr class="hr-class-two">
-
-        <!-- Form 2 -->
-        <form class="form-inline" autocomplete="off" #porcentagem1Form2="ngForm" id="porcentagem1Form2"
-          [ngFormOptions]="{ updateOn: 'change' }">
-
-          <div class="form-group">
-            <label></label>
-            <input currencyMask name="calculo2_numero2" [(ngModel)]="calculo2.numero2" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
-          <div class="form-group">
-            <label class="margin-aply">representa</label>
-            <input currencyMask name="calculo2_porcentagem" [(ngModel)]="calculo2.porcentagem"
-              class="form-control input-sm" [options]="{allowNegative: false }" required>
-          </div>
-          <div class="form-group">
-            <label class="margin-aply">% de</label>
-            <input currencyMask name="calculo2_numero1" [(ngModel)]="calculo2.numero1" class="form-control input-sm"
-              [options]="{allowNegative: false }" readonly>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" [disabled]="porcentagem1Form2.invalid || calculo2.calculado" (click)="calcular(2)"
-              class="btn btn-block btn-primary btn-sm">Calcular</button>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" (click)="limpar(2)" class="btn btn-blockbtn-default btn-sm">Limpar</button>
-          </div>
-        </form>
-        <hr class="hr-class-two">
+          <div class="box-body">
 
 
-        <form class="form-inline" autocomplete="off" #porcentagem1Form3="ngForm" id="porcentagem1Form3"
-          [ngFormOptions]="{ updateOn: 'change' }">
+            <!-- Form 1 -->
 
-          <div class="form-group">
-            <label></label>
-            <input currencyMask name="calculo3_porcentagem" [(ngModel)]="calculo3.porcentagem"
-              class="form-control input-sm" [options]="{allowNegative: false }" readonly>
-          </div>
+            <form class="form-inline" autocomplete="off" #porcentagem1Form1="ngForm" id="porcentagem1Form1"
+              [ngFormOptions]="{ updateOn: 'change' }">
 
-          <div class="form-group">
-            <label class="margin-aply">% de</label>
-            <input currencyMask name="calculo3_numero1" [(ngModel)]="calculo3.numero1" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
+              <div class="form-group">
+                <label></label>
+                <input currencyMask name="calculo1_porcentagem" [(ngModel)]="calculo1.porcentagem"
+                  class="form-control input-sm" [options]="{allowNegative: false }" required>
+              </div>
 
-          <div class="form-group">
-            <label class="margin-aply">é igual a</label>
-            <input currencyMask name="calculo3_numero2" [(ngModel)]="calculo3.numero2" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" [disabled]="porcentagem1Form3.invalid || calculo3.calculado" (click)="calcular(3)"
-              class="btn btn-block btn-primary btn-sm">Calcular</button>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" (click)="limpar(3)" class="btn btn-block btn-default  btn-sm">Limpar</button>
-          </div>
-        </form>
-        <hr class="hr-class-two">
+              <div class="form-group">
+                <label class="margin-aply">% de</label>
+                <input currencyMask name="calculo1_numero1" [(ngModel)]="calculo1.numero1" class="form-control input-sm"
+                  [options]="{allowNegative: false }" required>
+              </div>
+
+              <div class="form-group">
+                <label class="margin-aply">é igual a</label>
+                <input currencyMask name="calculo1_numero2" [(ngModel)]="calculo1.numero2" class="form-control input-sm"
+                  [options]="{allowNegative: false }" readonly>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" [disabled]="porcentagem1Form1.invalid || calculo1.calculado" (click)="calcular(1)"
+                  class="btn btn-block btn-primary btn-sm">Calcular</button>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" (click)="limpar(1)" class="btn btn-block btn-default btn-sm">Limpar</button>
+              </div>
+            </form>
+            <hr class="hr-class-two">
+
+            <!-- Form 2 -->
+            <form class="form-inline" autocomplete="off" #porcentagem1Form2="ngForm" id="porcentagem1Form2"
+              [ngFormOptions]="{ updateOn: 'change' }">
+
+              <div class="form-group">
+                <label></label>
+                <input currencyMask name="calculo2_numero2" [(ngModel)]="calculo2.numero2" class="form-control input-sm"
+                  [options]="{allowNegative: false }" required>
+              </div>
+              <div class="form-group">
+                <label class="margin-aply">representa</label>
+                <input currencyMask name="calculo2_porcentagem" [(ngModel)]="calculo2.porcentagem"
+                  class="form-control input-sm" [options]="{allowNegative: false }" required>
+              </div>
+              <div class="form-group">
+                <label class="margin-aply">% de</label>
+                <input currencyMask name="calculo2_numero1" [(ngModel)]="calculo2.numero1" class="form-control input-sm"
+                  [options]="{allowNegative: false }" readonly>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" [disabled]="porcentagem1Form2.invalid || calculo2.calculado" (click)="calcular(2)"
+                  class="btn btn-block btn-primary btn-sm">Calcular</button>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" (click)="limpar(2)" class="btn btn-blockbtn-default btn-sm">Limpar</button>
+              </div>
+            </form>
+            <hr class="hr-class-two">
 
 
-        <!-- Form 4 -->
+            <form class="form-inline" autocomplete="off" #porcentagem1Form3="ngForm" id="porcentagem1Form3"
+              [ngFormOptions]="{ updateOn: 'change' }">
 
-        <form class="form-inline" autocomplete="off" #porcentagem4Form1="ngForm" id="porcentagem4Form"
-          [ngFormOptions]="{ updateOn: 'change' }">
-          <div class="form-group">
-            <label class="margin-aply">A variação percentual entre</label>
-            <input currencyMask name="calculo4_numero1" [(ngModel)]="calculo4.numero1" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
+              <div class="form-group">
+                <label></label>
+                <input currencyMask name="calculo3_porcentagem" [(ngModel)]="calculo3.porcentagem"
+                  class="form-control input-sm" [options]="{allowNegative: false }" readonly>
+              </div>
 
-          <div class="form-group">
-            <label class="margin-aply">e</label>
-            <input currencyMask name="calculo4_porcentagem" [(ngModel)]="calculo4.numero2" class="form-control input-sm"
-              [options]="{allowNegative: false }" required>
-          </div>
+              <div class="form-group">
+                <label class="margin-aply">% de</label>
+                <input currencyMask name="calculo3_numero1" [(ngModel)]="calculo3.numero1" class="form-control input-sm"
+                  [options]="{allowNegative: false }" required>
+              </div>
 
-          <div class="form-group">
-            <label class="margin-aply">é de</label>
-            <input currencyMask name="calculo4_numero2" [(ngModel)]="calculo4.porcentagem" class="form-control input-sm"
-              [options]="{allowNegative: true }" readonly>
-            <label class="margin-aply">%</label>
+              <div class="form-group">
+                <label class="margin-aply">é igual a</label>
+                <input currencyMask name="calculo3_numero2" [(ngModel)]="calculo3.numero2" class="form-control input-sm"
+                  [options]="{allowNegative: false }" required>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" [disabled]="porcentagem1Form3.invalid || calculo3.calculado" (click)="calcular(3)"
+                  class="btn btn-block btn-primary btn-sm">Calcular</button>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" (click)="limpar(3)" class="btn btn-block btn-default  btn-sm">Limpar</button>
+              </div>
+            </form>
+            <hr class="hr-class-two">
+
+
+            <!-- Form 4 -->
+
+            <form class="form-inline" autocomplete="off" #porcentagem4Form1="ngForm" id="porcentagem4Form"
+              [ngFormOptions]="{ updateOn: 'change' }">
+              <div class="form-group">
+                <label class="margin-aply">A variação % entre</label>
+                <input currencyMask name="calculo4_numero1" [(ngModel)]="calculo4.numero1" class="form-control input-sm"
+                  [options]="{allowNegative: false }" required>
+              </div>
+
+              <div class="form-group">
+                <label class="margin-aply">e</label>
+                <input currencyMask name="calculo4_porcentagem" [(ngModel)]="calculo4.numero2"
+                  class="form-control input-sm" [options]="{allowNegative: false }" required>
+              </div>
+
+              <div class="form-group">
+                <label class="margin-aply">é de</label>
+                <input currencyMask name="calculo4_numero2" [(ngModel)]="calculo4.porcentagem"
+                  class="form-control input-sm" [options]="{allowNegative: true }" readonly>
+                <label class="margin-aply">%</label>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" [disabled]="porcentagem4Form1.invalid || calculo4.calculado" (click)="calcular(4)"
+                  class="btn btn-block btn-primary btn-sm">Calcular</button>
+              </div>
+              <div class="form-group margin-left-aply md:margin-aply">
+                <button type="button" (click)="limpar(4)" class="btn btn-block btn-default  btn-sm">Limpar</button>
+              </div>
+            </form>
+            <hr class="hr-class-two">
+            <app-conceito></app-conceito>
           </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" [disabled]="porcentagem4Form1.invalid || calculo4.calculado" (click)="calcular(4)"
-              class="btn btn-block btn-primary btn-sm">Calcular</button>
-          </div>
-          <div class="form-group margin-left-aply md:margin-aply">
-            <button type="button" (click)="limpar(4)" class="btn btn-block btn-default  btn-sm">Limpar</button>
-          </div>
-        </form>
-        <hr class="hr-class-two">
-        <app-conceito></app-conceito>
+        </div>
       </div>
     </div>
+    <div class="col-md-3">
+      <app-menu-lateral></app-menu-lateral>
+    </div>
   </div>
+
 </section>

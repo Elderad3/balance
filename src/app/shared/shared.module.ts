@@ -3,12 +3,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { Grafico2Component } from './components/grafico2/grafico2.component';
+import { TabelaInssComponent } from './components/conceito/tabela-inss.component';
+import { TabelaIrComponent } from './components/conceito/tabela-ir.component';
+import { TabelaSalarioFamiliaComponent } from './components/conceito/tabela-salario-familia.component';
 
 
 @NgModule({
   declarations: [
     Grafico2Component,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TabelaInssComponent,
+    TabelaIrComponent,
+    TabelaSalarioFamiliaComponent
+
   ],
   imports: [
     CommonModule,
@@ -17,7 +24,10 @@ import { Grafico2Component } from './components/grafico2/grafico2.component';
   ],
   exports: [
     CommonModule,
-    Grafico2Component
+    Grafico2Component,
+    TabelaInssComponent,
+    TabelaIrComponent,
+    TabelaSalarioFamiliaComponent
   ],
   providers: [],
 })

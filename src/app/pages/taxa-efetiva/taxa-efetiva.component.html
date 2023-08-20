@@ -1,0 +1,82 @@
+<section class="content-header">
+  <h1>
+    Cálculadora de Taxa de Juros
+    <small>Descubra a taxa de juros do seu financiamento</small>
+  </h1>
+</section>
+<section class="content">
+  <form class="form-horizontal" autocomplete="off" #taxaForm="ngForm" id="taxaForm"
+    [ngFormOptions]="{ updateOn: 'change' }">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Taxa de Juros</h3>
+          </div>
+
+          <div class="form-horizontal">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-2">
+                  Valor do Financiado:
+                </label>
+                <div class="col-sm-3">
+                  <input currencyMask name="valorFinanciado" [(ngModel)]="financiamento.valorFinanciado"
+                    class="form-control input-sm" [options]="{allowNegative: false }" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3">
+                  Período (Número de Meses):
+                </label>
+
+                <div class="col-sm-2">
+                  <input currencyMask name="meses" [(ngModel)]="financiamento.meses" class="form-control input-sm"
+                    [options]="{allowNegative: false, precision: 0 }" required min="1" max="360" maxlength="3" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3">
+                  Valor da prestação:
+                </label>
+
+                <div class="col-sm-2">
+                  <input currencyMask name="prestacao" [(ngModel)]="financiamento.prestacao"
+                    class="form-control input-sm" [options]="{allowNegative: false}" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
+                    [disabled]="taxaForm.invalid" (click)="calcular()">Calcular</button>
+                  <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
+                    [disabled]="taxaForm.invalid" (click)="limparFormulario()">Limpar Formulário</button>
+                </div>
+              </div>
+              <div *ngIf="calculado" class="row">
+                <div class="col-md-12">
+                  <h4>Resumo</h4>
+                  <div class="box box-widget widget-user-2">
+                    <div class="box-footer no-padding">
+                      <ul class="nav nav-stacked">
+                        <li><a>Valor do Financiamento: <span
+                              class="pull-right badge bg-blue">{{financiamento.valorFinanciado | number:
+                              "1.2-2"}}</span></a></li>
+                        <li><a>Período: <span class="pull-right badge  bg-blue"> {{financiamento.meses}}
+                              meses</span></a></li>
+                        <li><a>Taxa: <span class="pull-right badge  bg-blue">{{financiamento.taxa}} % ao
+                              Mês</span></a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <h4>Detalhamento</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
