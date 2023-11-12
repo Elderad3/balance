@@ -9,7 +9,7 @@ export class PorcentagemService {
         if (calculo.metodo === 1) {
             calculo.numero2 = (calculo.porcentagem / 100) * calculo.numero1
         } if (calculo.metodo === 2) {
-            calculo.numero1 = (calculo.porcentagem / calculo.numero2) * 100
+            calculo.numero1 = (calculo.numero2 / calculo.porcentagem) * 100
         } if (calculo.metodo === 3) {
             calculo.porcentagem = (calculo.numero2 / calculo.numero1) * 100
         }

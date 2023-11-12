@@ -88,7 +88,7 @@
             <div class="row">
               <div class="col-md-4">
                 <button class="btn btn-primary btn-sm" style="margin-bottom: 5px" type="button"
-                  [disabled]="rescisaoForm.invalid || this.calculado === true" (click)="calcular()">Calcular</button>
+                  [disabled]="rescisaoForm.invalid || this.calculado" (click)="calcular()">Calcular</button>
                 <button class="btn btn-default btn-sm" style="margin-bottom: 5px; margin-left: 10px" type="button"
                   [disabled]="rescisaoForm.invalid" (click)="limparFormulario()">Limpar</button>
               </div>
