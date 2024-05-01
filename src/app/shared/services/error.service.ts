@@ -1,10 +1,6 @@
-import { ErrorHandler, Injectable, Injector} from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router, Event, NavigationError } from '@angular/router';
 
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
 
 //import * as StackTraceParser from 'error-stack-parser';
 
@@ -21,12 +17,12 @@ export class ErrorService {
     let msg: string;
 
     if (typeof errorResponse === 'string') {
-     msg = errorResponse;
+      msg = errorResponse;
 
-  
+
     } else if (errorResponse instanceof HttpErrorResponse
-        && errorResponse.status >= 400 && errorResponse.status <= 499) {
-         msg = 'Ocorreu um erro ao processar a sua solicitação';
+      && errorResponse.status >= 400 && errorResponse.status <= 499) {
+      msg = 'Ocorreu um erro ao processar a sua solicitação';
 
       if (errorResponse.status === 403) {
         msg = 'Você não tem permissão para executar esta ação';

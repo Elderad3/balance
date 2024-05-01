@@ -56,7 +56,7 @@ export class RescisaoComponent implements OnInit {
       this.rescisaoService.avisoPrevio(this.rescisao).forEach(verba => {
         this.verbas.push(verba)
       }) : 0
-    this.verbas.push(this.rescisaoService.salarioFamilia(this.rescisao))
+    this.verbas.push(this.rescisaoService.salarioFamilia(this.rescisao, null, null))
 
     this.verbas = this.verbas.filter(v => v)
 

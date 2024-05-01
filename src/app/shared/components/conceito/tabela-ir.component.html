@@ -1,4 +1,4 @@
-<b>Tabela Progressiva Mensal do Imposto de Renda da Pessoa Física 2023</b>
+<b>Tabela Progressiva Mensal do Imposto de Renda da Pessoa Física 2024</b>
 <table class="table table-striped">
     <tbody>
         <tr>
@@ -6,31 +6,13 @@
             <th>Alíquota</th>
             <th>Dedução</th>
         </tr>
-        <tr>
-            <td>Até R$1.903,98</td>
-            <td>Isento</td>
-            <td>Isento</td>
-        </tr>
-        <tr>
-            <td>De R$1.903,99 até R$2.826,65</td>
-            <td>7,5%</td>
-            <td>R$ 142,80</td>
-        </tr>
-        <tr>
-            <td>De R$2.826,66 até R$3.751,05</td>
-            <td>15%</td>
-            <td>&nbsp;R$ 354,80</td>
-        </tr>
-        <tr>
-            <td>De R$3.751,06 até R$4.664,68</td>
-            <td>22,5%</td>
-            <td>R$ 636,13</td>
-        </tr>
-        <tr>
-            <td>Acima de R$4.664,68</td>
-            <td>27,5%</td>
-            <td>R$ 869,36</td>
+        <tr *ngFor="let faixa of faixasIr; let i = index">
+            <td><span *ngIf="i > 0">de R$ {{faixasIr[i-1].limiteSuperior + 0.01 | number: "1.2-2"}}</span> até
+                {{faixa.limiteSuperior | number: "1.2-2"}}
+            </td>
+            <td>{{faixa.aliquota * 100 | number: "1.2-2"}}%</td>
+            <td>{{faixa.deducao | number: "1.2-2"}}</td>
         </tr>
     </tbody>
 </table>
-<p><b>Dedução por dependente legal: 189,59</b></p>
+<p><b>Dedução por dependente legal: {{deducaoPorDependente | number: "1.2-2"}}</b></p>

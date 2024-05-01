@@ -19,24 +19,4 @@ export class SalarioLiquidoService extends RescisaoService {
             memoriaCalculo: `Valor Bruto do Salário `,
         }, inss, ir]
     }
-
-
-    salarioFamilia2(salario: Salario): Verba {
-        const valorMaximo = 59.82; // valor máximo do salário família em 2022
-        const rendaMaxima = 1745.18; // renda máxima para receber o valor máximo do salário família em 2023
-        let valor = 0
-
-        if (salario.valor <= rendaMaxima) {
-            // calcula o valor do salário família com base no número de filhos ou dependentes
-            valor = salario.filhos * valorMaximo
-            return {
-                rubrica: "Salário Família",
-                tipo: "Vantagem",
-                valor: valor,
-                memoriaCalculo: `Renda dentro do teto de ${rendaMaxima}, ${salario.filhos} filhos x
-            ${valorMaximo} por filho = ${valor} `,
-            }
-        }
-        return undefined
-    }
 }

@@ -43,7 +43,7 @@ export class FeriasComponent implements OnInit {
     this.feriasService.saldoFerias(this.ferias).forEach(verba => {
       this.verbas.push(verba)
     })
-    this.verbas.push(this.feriasService.feriasFamilia2(this.ferias))
+    this.verbas.push(this.feriasService.salarioFamilia(null, null, this.ferias))
 
 
     this.verbas = this.verbas.filter(v => v)

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Rescisao, Verba } from "src/app/shared/models/rescisao.model";
+import { Ferias, Rescisao, Salario, Verba } from "src/app/shared/models/rescisao.model";
 
 @Injectable({
     providedIn: 'root'
@@ -72,46 +72,55 @@ export class RescisaoService {
     }
 
     inss(salarioBruto: number): Verba {
-        if (salarioBruto > 7507.49) {
-            salarioBruto = 7507.49 // teto de salário pra contribuir pro inss
+        let tetoContribuicaoInss = this.faixasINSS()[3].limiteSuperior
+        if (salarioBruto > tetoContribuicaoInss) {
+            salarioBruto = tetoContribuicaoInss // teto de salário pra contribuir pro inss
         }
-        let aliquota: number, deducao: number;
-        if (salarioBruto <= 1302) { aliquota = 0.075, deducao = 0 }
-        else if (salarioBruto <= 2571.29) { aliquota = 0.09, deducao = 19.53 }
-        else if (salarioBruto <= 3856.94) { aliquota = 0.12, deducao = 96.67 }
-        else if (salarioBruto <= 7507.49) { aliquota = 0.14, deducao = 173.81 }
-        else { aliquota = 0.14, deducao = 173.81 }
-        let inss = salarioBruto * aliquota - deducao
+        let inss: number = 0, aliquota: number = 0, deducao: number = 0
+        for (const faixa of this.faixasINSS()) {
+            if (salarioBruto <= faixa.limiteSuperior) {
+                inss = (salarioBruto * faixa.aliquota) - faixa.deducao;
+                aliquota = faixa.aliquota
+                deducao = faixa.deducao
+                break;
+            }
+        }
         return {
             tipo: "Desconto",
             valor: inss,
-            memoriaCalculo: `Teto de contribuição vigente: 7.507,00. Base de Calculo: ${this.formatBRL(salarioBruto)} x 
-            Alíquota: ${this.formatBRL(aliquota)} - Dedução: ${this.formatBRL(deducao)} = 
+            memoriaCalculo: `Teto de contribuição vigente: ${this.formatBRL(tetoContribuicaoInss)}. Base de Calculo: ${this.formatBRL(salarioBruto)} (x) 
+            Alíquota: ${this.formatBRL(aliquota * 100)}% (-) Dedução: ${this.formatBRL(deducao)} (=) 
             ${inss.toFixed(2)}`
         }
     }
 
     impostoDeRenda(salarioBruto: number, dependentes: number): Verba {
-        const inss = this.inss(salarioBruto).valor;
-        const deducaoDependentes = dependentes * 189.59
-        const baseDeCalculo = salarioBruto - inss - deducaoDependentes;
-        let aliquota: number, deducao: number;
-        if (baseDeCalculo <= 1903.98) { aliquota = 0, deducao = 0 }
-        else if (baseDeCalculo <= 2826.65) { aliquota = 0.075, deducao = 142.80 }
-        else if (baseDeCalculo <= 3751.05) { aliquota = 0.15, deducao = 354.80 }
-        else if (baseDeCalculo <= 4664.68) {
-            aliquota = 0.225, deducao = 636.13
-        } else { aliquota = 0.275, deducao = 869.36 }
-        const impostoRenda = baseDeCalculo * aliquota - deducao;
-        const ir = impostoRenda > 0 ? impostoRenda : 0
+        let inss = this.inss(salarioBruto).valor;
+        let deducaoDependentes = dependentes * this.deducaoPorDependenteIR()
+        let baseDeCalculo = salarioBruto - inss - deducaoDependentes;
+        let ir: number = 0, aliquota: number = 0, deducao: number = 0
+        for (const faixa of this.faixasIR()) {
+            if (baseDeCalculo <= faixa.limiteSuperior) {
+                ir = (baseDeCalculo * faixa.aliquota) - faixa.deducao;
+                aliquota = faixa.aliquota
+                deducao = faixa.deducao
+                break;
+            }
+        }
         return {
             tipo: "Desconto",
             valor: ir,
-            memoriaCalculo: `Base de Calculo:(${this.formatBRL(salarioBruto)} - 
-            Inss: ${inss.toFixed(2)} - Dedução por Dependente: ${this.formatBRL(deducaoDependentes)} = ${this.formatBRL(baseDeCalculo)}) x 
-            Alíquota: ${this.formatBRL(aliquota)} - Dedução: ${this.formatBRL(deducao)} = ${this.formatBRL(ir)}`
+            memoriaCalculo: `Base de Cálculo:(${this.formatBRL(salarioBruto)} - 
+            Inss: ${inss.toFixed(2)} (-) Dedução por Dependente: ${this.formatBRL(deducaoDependentes)} (=) ${this.formatBRL(baseDeCalculo)}) (x) 
+            Alíquota: ${this.formatBRL(aliquota * 100)}% (-) Dedução: ${this.formatBRL(deducao)} (=) ${this.formatBRL(ir)}`
         }
     }
+
+    /**
+     * Calcula aviso prévio de uma rescisão
+     * @param rescisao 
+     * @returns 
+     */
 
     avisoPrevio(rescisao: Rescisao) {
         const dataAdmissao = this.dataUTC(rescisao.dataInicio);
@@ -137,13 +146,19 @@ export class RescisaoService {
                 tipo: "Vantagem",
                 valor: avisoPrevioProporcional,
                 memoriaCalculo: `${this.formatBRL(tempoServico)} anos de tempo de serviço dá direito a ${diasAvisoPrevioProporcional} dias de aviso prévio,
-                último salário / 30 x ${diasAvisoPrevioProporcional}: ${this.formatBRL(((salario / 30) * diasAvisoPrevioProporcional))} + 13° av. prévio: ${this.formatBRL(decimoTerceiroAvisoPrevio)} + 
-                Ferias av. Prévio: ${this.formatBRL(feriasAvisoPrevio)}  = ${this.formatBRL(avisoPrevioProporcional)}`,
+                último salário / 30 (x) ${diasAvisoPrevioProporcional}: ${this.formatBRL(((salario / 30) * diasAvisoPrevioProporcional))} (+) 13° av. prévio: ${this.formatBRL(decimoTerceiroAvisoPrevio)} + 
+                Ferias av. Prévio: ${this.formatBRL(feriasAvisoPrevio)} (=) ${this.formatBRL(avisoPrevioProporcional)}`,
             }, inss, ir]
         }
         return undefined
 
     }
+
+    /**
+     * calcula dias de aviso prévio proporcional
+     * @param rescisao 
+     * @returns 
+     */
 
     diasAvisoPrevioProporcional(rescisao: Rescisao) {
         const msPorDia = 1000 * 60 * 60 * 24; // milissegundos em um dia
@@ -158,20 +173,28 @@ export class RescisaoService {
         }
     }
 
-    salarioFamilia(rescisao: Rescisao): Verba {
-        const valorMaximo = 59.82; // valor máximo do salário família em 2021
-        const rendaMaxima = 1745.18; // renda máxima para receber o valor máximo do salário família em 2023
-        let valor = 0
-
-        if (rescisao.ultimoSalario <= rendaMaxima) {
+    salarioFamilia(rescisao?: Rescisao, salario?: Salario, ferias?: Ferias): Verba {
+        let valor: number = 0, filhos: number = 0, saldoRubrica: number = 0
+        //se rescisão é diferente de null ou undefined retorna rescisão
+        if (rescisao ?? rescisao) {
+            filhos = rescisao.filhos
+            saldoRubrica = rescisao.ultimoSalario
+        } else if (salario ?? salario) {
+            filhos = salario.filhos
+            saldoRubrica = salario.valor
+        } else if (ferias ?? ferias) {
+            filhos = ferias.filhos
+            saldoRubrica = ferias.valor
+        }
+        if (saldoRubrica <= this.faixaSalarioFamilia().rendaMaxima) {
             // calcula o valor do salário família com base no número de filhos ou dependentes
-            valor = rescisao.filhos * valorMaximo
+            valor = filhos * this.faixaSalarioFamilia().valorMaximo
             return {
                 rubrica: "Salário Família",
                 tipo: "Vantagem",
                 valor: valor,
-                memoriaCalculo: `Renda dentro do teto de ${this.formatBRL(rendaMaxima)}, ${rescisao.filhos} filhos x
-            ${valorMaximo} por filho = ${this.formatBRL(valor)} `,
+                memoriaCalculo: `Renda dentro do teto de ${this.formatBRL(this.faixaSalarioFamilia().rendaMaxima)}, ${filhos} filhos (x)
+            ${this.faixaSalarioFamilia().valorMaximo} por filho (=) ${this.formatBRL(valor)} `,
             }
         }
         return undefined
@@ -193,6 +216,37 @@ export class RescisaoService {
         ]
     }
 
+    // ir 2024,
+    deducaoPorDependenteIR() {
+        return 189.59
+    }
+    faixasIR() {
+        return [
+            { limiteSuperior: 2259.20, aliquota: 0, deducao: 0 },
+            { limiteSuperior: 2826.65, aliquota: 0.075, deducao: 169.44 },
+            { limiteSuperior: 3751.05, aliquota: 0.15, deducao: 381.44 },
+            { limiteSuperior: 4664.68, aliquota: 0.225, deducao: 662.77 },
+            { limiteSuperior: Infinity, aliquota: 0.275, deducao: 896 }
+        ]
+    }
+
+    //faixas inss 2024
+    faixasINSS() {
+        return [
+            { limiteSuperior: 1412, aliquota: 0.075, deducao: 0 },
+            { limiteSuperior: 2666.68, aliquota: 0.09, deducao: 21.18 },
+            { limiteSuperior: 4000.03, aliquota: 0.12, deducao: 101.18 },
+            { limiteSuperior: 7786.02, aliquota: 0.14, deducao: 181.18 }
+            //limite superior final é igual ao teto de contribuicão
+        ]
+    }
+
+    //Salário família 2024
+    faixaSalarioFamilia() {
+        return { valorMaximo: 62.04, rendaMaxima: 1819.26 }
+    }
+
+
     dataUTC(data: any) {
         let date = new Date(data);
         date = new Date(
@@ -207,7 +261,6 @@ export class RescisaoService {
     }
 
     formatBRL(valor: number) {
-        let valorFormatado = valor.toLocaleString('pt-br', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
-        return valorFormatado
+        return valor.toLocaleString('pt-br', { maximumFractionDigits: 2, minimumFractionDigits: 2 });
     }
 }

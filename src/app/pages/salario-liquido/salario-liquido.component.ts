@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { SalarioLiquidoService } from '../salario-liquido/salario-liquido.service';
 import { Verba, Salario } from 'src/app/shared/models/rescisao.model';
 import { MenuContext } from 'src/app/core/components/menu-context/menu-context.component';
+import { ErrorService } from 'src/app/shared/services/error.service';
 
 @Component({
   selector: 'app-salario-liquido',
@@ -26,7 +27,7 @@ export class SalarioLiquidoComponent implements OnInit {
   @ViewChild("salarioForm")
   salarioForm: NgForm;
 
-  constructor(private titleService: Title, private metaService: Meta, private salarioLiquidoService: SalarioLiquidoService) { }
+  constructor(private titleService: Title, private metaService: Meta, private salarioLiquidoService: SalarioLiquidoService, private errorService: ErrorService) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.menuContext.titulo);
@@ -34,15 +35,14 @@ export class SalarioLiquidoComponent implements OnInit {
       { name: 'description', content: this.menuContext.descricao }
     );
     this.salario = new Salario()
-
-
   }
+
 
   calcular() {
     this.salarioLiquidoService.salario(this.salario).forEach(verba => {
       this.verbas.push(verba)
     })
-    this.verbas.push(this.salarioLiquidoService.salarioFamilia2(this.salario))
+    this.verbas.push(this.salarioLiquidoService.salarioFamilia(null, this.salario, null))
 
     this.verbas = this.verbas.filter(v => v)
     this.vantagens = this.verbas.filter(v => v.tipo === 'Vantagem')

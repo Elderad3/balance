@@ -22,24 +22,4 @@ export class FeriasService extends RescisaoService {
             + 1/3 de férias: ${this.formatBRL(saldoFerias)} / 3 =  ${this.formatBRL(umTercoFerias)}, soma de férias mais 1/3 = ${this.formatBRL(saldoFerias + umTercoFerias)} `,
         }, inss, ir]
     }
-
-
-    feriasFamilia2(ferias: Ferias): Verba {
-        const valorMaximo = 59.82; // valor máximo do salário família em 2022
-        const rendaMaxima = 1745.18; // renda máxima para receber o valor máximo do salário família em 2023
-        let valor = 0
-
-        if (ferias.valor <= rendaMaxima) {
-            // calcula o valor do salário família com base no número de filhos ou dependentes
-            valor = ferias.filhos * valorMaximo
-            return {
-                rubrica: "Salário Família",
-                tipo: "Vantagem",
-                valor: valor,
-                memoriaCalculo: `Renda dentro do teto de ${this.formatBRL(rendaMaxima)}, ${ferias.filhos} filhos x
-            ${valorMaximo} por filho = ${this.formatBRL(valor)} `,
-            }
-        }
-        return undefined
-    }
 }

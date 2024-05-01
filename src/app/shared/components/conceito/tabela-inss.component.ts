@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RescisaoService } from 'src/app/pages/rescisao/rescisao.service';
 @Component({
   selector: 'app-tabela-inss',
   templateUrl: './tabela-inss.component.html'
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
 
 export class TabelaInssComponent implements OnInit {
 
-  constructor() { }
+  faixasInss: any
+
+  constructor(private rescisaoService: RescisaoService) { }
 
   ngOnInit() {
-
+    this.faixasInss = this.rescisaoService.faixasINSS()
   }
 
 
