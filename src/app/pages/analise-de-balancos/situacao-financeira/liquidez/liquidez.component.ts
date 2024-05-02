@@ -37,7 +37,7 @@ export class LiquidezComponent implements OnInit {
   estoqueB1: number = 0;
   estoqueB2: number = 0;
 
-  constructor(private impressaoService:ImpressaoService) {
+  constructor(private impressaoService: ImpressaoService) {
   }
 
   ngOnInit() {
@@ -93,24 +93,4 @@ export class LiquidezComponent implements OnInit {
     this.liquidezSecaB2 =
       (this.ativoCirculanteB2 - this.estoqueB2) / this.passivoCirculanteTotalB2;
   }
-
-  propsGraficoLiquidezGeralB1(){
-    const propsGrafico:PropGrafico[] = [
-      {nome: 'Ativo Circulante', valor: this.ativoCirculanteB1},
-      {nome: 'Realizável a Longo Prazo', valor: this.realizavelLongoPrazoB1},
-      {nome: 'Passivo Circulante', valor: this.passivoCirculanteTotalB1 },
-      {nome: 'Passivo não Circulante', valor: this.passivoNaoCirculanteTotalB1},
-    ]
-     return propsGrafico
-    }
-
-    propsGraficoLiquidezGeralB2(){
-      const propsGrafico:PropGrafico[]  = [
-        {nome: 'Ativo Circulante', valor: this.ativoCirculanteB2},
-        {nome: 'Realizável a Longo Prazo', valor: this.realizavelLongoPrazoB2},
-        {nome: 'Passivo Circulante', valor: this.passivoCirculanteTotalB2 },
-        {nome: 'Passivo não Circulante', valor: this.passivoNaoCirculanteTotalB2},
-      ]
-       return propsGrafico
-      }
 }

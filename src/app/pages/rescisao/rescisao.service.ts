@@ -4,7 +4,7 @@ import { Ferias, Rescisao, Salario, Verba } from "src/app/shared/models/rescisao
 @Injectable({
     providedIn: 'root'
 })
-export class RescisaoService {
+export class CalculoTrabalhistaService {
 
     saldoSalario(rescisao: Rescisao): Verba[] {
         let dataFim = this.dataUTC(rescisao.dataFim)
@@ -66,8 +66,8 @@ export class RescisaoService {
             rubrica: "Ferias Proporcionais + 1/3",
             tipo: "Vantagem",
             valor: totalFerias,
-            memoriaCalculo: `${mesesAReceber}/12 avos do último salário = ${this.formatBRL(valorFerias)} + 
-            um terço: ${this.formatBRL(umTerco)} = ${this.formatBRL(totalFerias)}`,
+            memoriaCalculo: `${mesesAReceber}/12 avos do último salário (=) ${this.formatBRL(valorFerias)} (+) 
+            um terço: ${this.formatBRL(umTerco)} (=) ${this.formatBRL(totalFerias)}`,
         }, inss, ir]
     }
 
@@ -249,14 +249,7 @@ export class RescisaoService {
 
     dataUTC(data: any) {
         let date = new Date(data);
-        date = new Date(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
-            date.getUTCHours(),
-            date.getUTCMinutes(),
-            date.getUTCSeconds(),
-            date.getUTCMilliseconds());
+        date = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
         return date
     }
 

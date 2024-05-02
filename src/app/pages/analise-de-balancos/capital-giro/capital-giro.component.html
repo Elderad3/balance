@@ -14,10 +14,8 @@
         </div>
         <div class="col-md-6">
           <h4>{{ b1.ano }}</h4>
-          <app-grafico2 [propsGrafico]= 
-          "[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
-            {nome: 'Passivo Circulante', valor: passivoCirculanteB1}]">
-        </app-grafico2>
+          <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
+          {nome: 'Passivo Circulante', valor: passivoCirculanteB1}]"></app-bar-chart>
           <hr class="hr-class">
           <p>
             <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
@@ -50,10 +48,8 @@
         </div>
         <div class="col-md-6">
           <h4>{{ b2.ano }}</h4>
-          <app-grafico2 [propsGrafico]= 
-          "[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
-            {nome: 'Passivo Circulante', valor: passivoCirculanteB2}]">
-        </app-grafico2>
+          <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
+          {nome: 'Passivo Circulante', valor: passivoCirculanteB2}]"></app-bar-chart>
           <hr class="hr-class">
           <p>
             <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
@@ -102,10 +98,8 @@
         </div>
         <div class="col-md-6">
           <h4>{{ b1.ano }}</h4>
-          <app-grafico2 [propsGrafico]= 
-          "[{nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB1},
-            {nome: 'Ativo não Circulante', valor: ativoCirculanteB1}]">
-        </app-grafico2>
+          <app-bar-chart [propsGrafico]="[{nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB1},
+          {nome: 'Ativo não Circulante', valor: ativoNaoCirculanteB1}]"></app-bar-chart>
           <hr class="hr-class">
           <p>
             <i>Patrimônio Líquido:
@@ -142,10 +136,8 @@
         </div>
         <div class="col-md-6">
           <h4>{{ b2.ano }}</h4>
-          <app-grafico2 [propsGrafico]= 
-          "[{nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB2},
-            {nome: 'Ativo não Circulante', valor: ativoCirculanteB2}]">
-        </app-grafico2>
+          <app-bar-chart [propsGrafico]="[{nome: 'Patrimônio Líquido', valor: patrimonioLiquidoB2},
+          {nome: 'Ativo não Circulante', valor: ativoNaoCirculanteB2}]"></app-bar-chart>
           <hr class="hr-class">
           <p>
             <i>Patrimônio Líquido:

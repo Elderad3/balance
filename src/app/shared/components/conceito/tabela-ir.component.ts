@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RescisaoService } from 'src/app/pages/rescisao/rescisao.service';
+import { CalculoTrabalhistaService } from 'src/app/pages/rescisao/rescisao.service';
 @Component({
   selector: 'app-tabela-ir',
   templateUrl: './tabela-ir.component.html'
@@ -10,11 +10,11 @@ export class TabelaIrComponent implements OnInit {
   faixasIr: any
   deducaoPorDependente: number
 
-  constructor(private rescisaoService: RescisaoService) { }
+  constructor(private calculoTrabalhistaService: CalculoTrabalhistaService) { }
 
   ngOnInit() {
-    this.faixasIr = this.rescisaoService.faixasIR()
-    this.deducaoPorDependente = this.rescisaoService.deducaoPorDependenteIR()
+    this.faixasIr = this.calculoTrabalhistaService.faixasIR()
+    this.deducaoPorDependente = this.calculoTrabalhistaService.deducaoPorDependenteIR()
   }
 
 

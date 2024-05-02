@@ -13,10 +13,9 @@
     </div>
     <div class="col-md-6">
       <h4>{{ b1.ano }}</h4>
-        <app-grafico2 [propsGrafico]= 
-        "[{nome: 'Vendas Líquidas', valor: vendasLiquidasDre1},
+      <app-bar-chart [propsGrafico]="[{nome: 'Vendas Líquidas', valor: vendasLiquidasDre1},
           {nome: 'Ativo Total', valor: ativoTotalB1}]">
-      </app-grafico2>
+      </app-bar-chart>
       <hr class="hr-class">
       <p>
         <i>Vendas Líquidas: {{ vendasLiquidasDre1 | number: "1.2-2" }}</i>
@@ -41,10 +40,9 @@
 
     <div class="col-md-6">
       <h4>{{ b2.ano }}</h4>
-        <app-grafico2 [propsGrafico]= 
-        "[{nome: 'Vendas Líquidas', valor: vendasLiquidasDre2},
+      <app-bar-chart [propsGrafico]="[{nome: 'Vendas Líquidas', valor: vendasLiquidasDre2},
           {nome: 'Ativo Total', valor: ativoTotalB2}]">
-      </app-grafico2>
+      </app-bar-chart>
       <hr class="hr-class">
       <p>
         <i>Vendas Líquidas: {{ vendasLiquidasDre2 | number: "1.2-2" }}</i>

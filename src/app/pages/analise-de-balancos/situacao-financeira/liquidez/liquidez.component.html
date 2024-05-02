@@ -4,264 +4,270 @@
     capacidade de pagar suas dívidas, mas poderá não estar obrigatoriamente
     pagando suas dívidas em dia em razão de outras variáveis</b>
 </p>
-  <!-- LIQUIDEZ CORRENTE -->
-  <div class="box box-primary" id="liquidezCorrente">
-    <div class="box-header">
-      <h5 class="box-title">Liquidez Corrente (LC)</h5>
+<!-- LIQUIDEZ CORRENTE -->
+<div class="box box-primary" id="liquidezCorrente">
+  <div class="box-header">
+    <h5 class="box-title">Liquidez Corrente (LC)</h5>
+  </div>
+  <div class="box-body">
+    <div class="col-md-12">
+      <p>
+        <b>O Índice de Liquidez corrente indica o quanto a empresa possui no
+          Ativo Circulante para R$ 1,00 de Passivo Circulante</b>
+      </p>
+      <p><i>Fórmula: LC = AC / PC | Quanto maior do que 1, melhor</i></p>
     </div>
-    <div class="box-body">
-      <div class="col-md-12">
-        <p>
-          <b>O Índice de Liquidez corrente indica o quanto a empresa possui no
-            Ativo Circulante para R$ 1,00 de Passivo Circulante</b>
-        </p>
-        <p><i>Fórmula: LC = AC / PC | Quanto maior do que 1, melhor</i></p>
-      </div>
-      <div class="col-md-6">
-        <h4>{{ b1.ano }}</h4>
-        <app-grafico2 [propsGrafico]= 
-        "[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
+    <div class="col-md-6">
+      <h4>{{ b1.ano }}</h4>
+      <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
           {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB1}]">
-      </app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezCorrenteB1 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezCorrenteB1 | number: "1.2-2" }}
-        </h3>
+      </app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezCorrenteB1 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezCorrenteB1 | number: "1.2-2" }}
+      </h3>
 
-        <p *ngIf="liquidezCorrenteB1 > 1" class="text-green">
-          Para cada R$ 1,00 do Passivo Circulante, a empresa possui R$
-          {{ liquidezCorrenteB1 | number: "1.2-2" }} no Ativo Circulante, ou
-          seja, uma folga de R$
-          {{ liquidezCorrenteB1 - 1 | number: "1.2-2" }} para cada R$ 1,00 de
-          dívidas de curto prazo.<br />
-          O Resultado demonstra folga no disponível para uma possível
-          liquidação das obrigações.
-        </p>
+      <p *ngIf="liquidezCorrenteB1 > 1" class="text-green">
+        Para cada R$ 1,00 do Passivo Circulante, a empresa possui R$
+        {{ liquidezCorrenteB1 | number: "1.2-2" }} no Ativo Circulante, ou
+        seja, uma folga de R$
+        {{ liquidezCorrenteB1 - 1 | number: "1.2-2" }} para cada R$ 1,00 de
+        dívidas de curto prazo.<br />
+        O Resultado demonstra folga no disponível para uma possível
+        liquidação das obrigações.
+      </p>
 
-        <p *ngIf="liquidezCorrenteB1 < 1" class="text-red">
-          A empresa não possui capital disponível suficiente para quitar as
-          obrigações a curto prazo.
-        </p>
-      </div>
+      <p *ngIf="liquidezCorrenteB1 < 1" class="text-red">
+        A empresa não possui capital disponível suficiente para quitar as
+        obrigações a curto prazo.
+      </p>
+    </div>
 
-      <div class="col-md-6">
-        <h4>{{ b2.ano }}</h4>
-        <app-grafico2 [propsGrafico]= 
-        "[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
+    <div class="col-md-6">
+      <h4>{{ b2.ano }}</h4>
+      <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
           {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB2}]">
-      </app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezCorrenteB2 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezCorrenteB2 | number: "1.2-2" }}
-        </h3>
-        <p *ngIf="liquidezCorrenteB2 > 1" class="text-green">
-          Para cada R$ 1,00 do Passivo Circulante, a empresa possui R$
-          {{ liquidezCorrenteB2 | number: "1.2-2" }} no Ativo Circulante, ou
-          seja, uma folga de R$
-          {{ liquidezCorrenteB2 - 1 | number: "1.2-2" }} para cada R$ 1,00 de
-          dívidas de curto prazo.
-          O Resultado demonstra folga no disponível para uma possível
-          liquidação das obrigações.
-        </p>
-        <p *ngIf="liquidezCorrenteB2 < 1" class="text-red">
-          A empresa não possui capital disponível suficiente para quitar as
-          obrigações a curto prazo.
-        </p>
-      </div>
+      </app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezCorrenteB2 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezCorrenteB2 | number: "1.2-2" }}
+      </h3>
+      <p *ngIf="liquidezCorrenteB2 > 1" class="text-green">
+        Para cada R$ 1,00 do Passivo Circulante, a empresa possui R$
+        {{ liquidezCorrenteB2 | number: "1.2-2" }} no Ativo Circulante, ou
+        seja, uma folga de R$
+        {{ liquidezCorrenteB2 - 1 | number: "1.2-2" }} para cada R$ 1,00 de
+        dívidas de curto prazo.
+        O Resultado demonstra folga no disponível para uma possível
+        liquidação das obrigações.
+      </p>
+      <p *ngIf="liquidezCorrenteB2 < 1" class="text-red">
+        A empresa não possui capital disponível suficiente para quitar as
+        obrigações a curto prazo.
+      </p>
     </div>
   </div>
+</div>
 
-  <!-- LIQUIDEZ GERAL -->
+<!-- LIQUIDEZ GERAL -->
 
-  <div class="box box-primary" id="liquidezGeral">
-    <div class="box-header">
-      <h5 class="box-title">Liquidez Geral (LG)</h5>
-    </div>
-
-    <div class="box-body">
-      <div class="col-md-12">
-        <p>
-          <b>O Índice de Liquidez Geral indica o quanto a empresa possui no
-            Ativo Circulante e no realizável a longo prazo para R$ 1,00 de
-            dívidas Totais (Passivo Circulante e Passivo não Circulante)</b>
-        </p>
-        <p>
-          <i>Fórmula: LG = AC + RLP / PC + PNC | Quanto maior do que 1,
-            melhor</i>
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h4>{{ b1.ano }}</h4>
-
-        <app-grafico2 [propsGrafico]="propsGraficoLiquidezGeralB1()"></app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Realizável a Longo Prazo:
-            {{ realizavelLongoPrazoB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo não Circulante:
-            {{ passivoNaoCirculanteTotalB1 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezGeralB1 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezGeralB1 | number: "1.2-2" }}
-        </h3>
-        <p *ngIf="liquidezGeralB1 > 1" class="text-green">
-          Para cada R$ 1,00 de dívidas totais, a empresa possui R$
-          {{ liquidezGeralB1 | number: "1.2-2" }}
-          nos grupos Ativo Circulante e Realizável a longo prazo, ou seja, uma
-          folga de R$
-          {{ liquidezGeralB1 - 1 | number: "1.2-2" }}
-          para cada R$ 1,00 de dívidas.
-        </p>
-        <p *ngIf="liquidezGeralB1 < 1" class="text-red">
-          A empresa não possui capital disponível suficiente para quitar as
-          obrigações totais. Para cada R$ 1,00 de dívidas totais, a empresa
-          possui apenas R$
-          {{ liquidezGeralB1 | number: "1.2-2" }}
-          nos grupos Ativo Circulante e Realizável a longo prazo.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h4>{{ b2.ano }}</h4>
-
-        <app-grafico2 [propsGrafico]="propsGraficoLiquidezGeralB2()"></app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Realizável a Longo Prazo:
-            {{ realizavelLongoPrazoB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo não Circulante:
-            {{ passivoNaoCirculanteTotalB2 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezGeralB2 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezGeralB2 | number: "1.2-2" }}
-        </h3>
-        <p *ngIf="liquidezGeralB2 > 1" class="text-green">
-          Para cada R$ 1,00 de dívidas totais, a empresa possui R$
-          {{ liquidezGeralB2 | number: "1.2-2" }}
-          nos grupos Ativo Circulante e Realizável a longo prazo, ou seja, uma
-          folga de R$
-          {{ liquidezGeralB2 - 1 | number: "1.2-2" }}
-          para cada R$ 1,00 de dívidas.
-        </p>
-        <p *ngIf="liquidezGeralB2 < 1" class="text-red">
-          A empresa não possui capital disponível suficiente para quitar as
-          obrigações totais. Para cada R$ 1,00 de dívidas totais, a empresa
-          possui apenas R$
-          {{ liquidezGeralB2 | number: "1.2-2" }}
-          nos grupos Ativo Circulante e Realizável a longo prazo.
-        </p>
-      </div>
-    </div>
+<div class="box box-primary" id="liquidezGeral">
+  <div class="box-header">
+    <h5 class="box-title">Liquidez Geral (LG)</h5>
   </div>
 
-  <!-- LIQUIDEZ SECA -->
-
-  <div class="box box-primary">
-    <div class="box-header">
-      <h5 class="box-title">Liquidez Seca (LS)</h5>
+  <div class="box-body">
+    <div class="col-md-12">
+      <p>
+        <b>O Índice de Liquidez Geral indica o quanto a empresa possui no
+          Ativo Circulante e no realizável a longo prazo para R$ 1,00 de
+          dívidas Totais (Passivo Circulante e Passivo não Circulante)</b>
+      </p>
+      <p>
+        <i>Fórmula: LG = AC + RLP / PC + PNC | Quanto maior do que 1,
+          melhor</i>
+      </p>
     </div>
-    <div class="box-body">
-      <div class="col-md-12">
-        <p>
-          <b>O Índice de Liquidez Seca indica o quanto a empresa possui no
-            Ativo Circulante, excluindo a conta de estoques, para R$ 1,00 de
-            dívidas de curto prazo (Passivo Circulante).</b>
-        </p>
-        <p><i>Fórmula: LG = AC - Estoques / PC | Quanto maior, melhor</i></p>
-      </div>
-      <div class="col-md-6">
-        <h4>{{ b1.ano }}</h4>
+    <div class="col-md-6">
+      <h4>{{ b1.ano }}</h4>
 
-        <app-grafico2 [propsGrafico]= 
-          "[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
+      <app-bar-chart [propsGrafico]="[
+      {nome: 'Ativo Circulante', valor:ativoCirculanteB1},
+      {nome: 'Realizável a Longo Prazo', valor:realizavelLongoPrazoB1},
+      {nome: 'Passivo Circulante', valor:passivoCirculanteTotalB1 },
+      {nome: 'Passivo não Circulante', valor:passivoNaoCirculanteTotalB1}
+    ]"></app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Realizável a Longo Prazo:
+          {{ realizavelLongoPrazoB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo não Circulante:
+          {{ passivoNaoCirculanteTotalB1 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezGeralB1 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezGeralB1 | number: "1.2-2" }}
+      </h3>
+      <p *ngIf="liquidezGeralB1 > 1" class="text-green">
+        Para cada R$ 1,00 de dívidas totais, a empresa possui R$
+        {{ liquidezGeralB1 | number: "1.2-2" }}
+        nos grupos Ativo Circulante e Realizável a longo prazo, ou seja, uma
+        folga de R$
+        {{ liquidezGeralB1 - 1 | number: "1.2-2" }}
+        para cada R$ 1,00 de dívidas.
+      </p>
+      <p *ngIf="liquidezGeralB1 < 1" class="text-red">
+        A empresa não possui capital disponível suficiente para quitar as
+        obrigações totais. Para cada R$ 1,00 de dívidas totais, a empresa
+        possui apenas R$
+        {{ liquidezGeralB1 | number: "1.2-2" }}
+        nos grupos Ativo Circulante e Realizável a longo prazo.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <h4>{{ b2.ano }}</h4>
+
+      <app-bar-chart [propsGrafico]="[
+      {nome: 'Ativo Circulante', valor:ativoCirculanteB2},
+      {nome: 'Realizável a Longo Prazo', valor:realizavelLongoPrazoB2},
+      {nome: 'Passivo Circulante', valor:passivoCirculanteTotalB2 },
+      {nome: 'Passivo não Circulante', valor:passivoNaoCirculanteTotalB2}
+    ]"></app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Realizável a Longo Prazo:
+          {{ realizavelLongoPrazoB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo não Circulante:
+          {{ passivoNaoCirculanteTotalB2 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezGeralB2 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezGeralB2 | number: "1.2-2" }}
+      </h3>
+      <p *ngIf="liquidezGeralB2 > 1" class="text-green">
+        Para cada R$ 1,00 de dívidas totais, a empresa possui R$
+        {{ liquidezGeralB2 | number: "1.2-2" }}
+        nos grupos Ativo Circulante e Realizável a longo prazo, ou seja, uma
+        folga de R$
+        {{ liquidezGeralB2 - 1 | number: "1.2-2" }}
+        para cada R$ 1,00 de dívidas.
+      </p>
+      <p *ngIf="liquidezGeralB2 < 1" class="text-red">
+        A empresa não possui capital disponível suficiente para quitar as
+        obrigações totais. Para cada R$ 1,00 de dívidas totais, a empresa
+        possui apenas R$
+        {{ liquidezGeralB2 | number: "1.2-2" }}
+        nos grupos Ativo Circulante e Realizável a longo prazo.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- LIQUIDEZ SECA -->
+
+<div class="box box-primary">
+  <div class="box-header">
+    <h5 class="box-title">Liquidez Seca (LS)</h5>
+  </div>
+  <div class="box-body">
+    <div class="col-md-12">
+      <p>
+        <b>O Índice de Liquidez Seca indica o quanto a empresa possui no
+          Ativo Circulante, excluindo a conta de estoques, para R$ 1,00 de
+          dívidas de curto prazo (Passivo Circulante).</b>
+      </p>
+      <p><i>Fórmula: LG = AC - Estoques / PC | Quanto maior, melhor</i></p>
+    </div>
+    <div class="col-md-6">
+      <h4>{{ b1.ano }}</h4>
+
+      <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB1},
             {nome: 'Estoque', valor: estoqueB1},
             {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB1}]">
-        </app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Estoque: {{ estoqueB1 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezSecaB1 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezSecaB1 | number: "1.2-2" }}
-        </h3>
-        <p *ngIf="liquidezSecaB1 > 1" class="text-green">
-          A empresa consegue pagar mais de 100% das suas dívidas de curto
-          prazo sem depender dos seus estoques.
-        </p>
-        <p *ngIf="liquidezSecaB1 < 1" class="text-red">
-          A empresa consegue pagar apenas
-          {{ liquidezSecaB1 * 100 | number: "1.2-2" }}% das suas dívidas de
-          curto prazo sem depender dos seus estoques.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <h4>{{ b2.ano }}</h4>
-        <app-grafico2 [propsGrafico]= 
-        "[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
+      </app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Estoque: {{ estoqueB1 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB1 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezSecaB1 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezSecaB1 | number: "1.2-2" }}
+      </h3>
+      <p *ngIf="liquidezSecaB1 > 1" class="text-green">
+        A empresa consegue pagar mais de 100% das suas dívidas de curto
+        prazo sem depender dos seus estoques.
+      </p>
+      <p *ngIf="liquidezSecaB1 < 1" class="text-red">
+        A empresa consegue pagar apenas
+        {{ liquidezSecaB1 * 100 | number: "1.2-2" }}% das suas dívidas de
+        curto prazo sem depender dos seus estoques.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <h4>{{ b2.ano }}</h4>
+      <app-bar-chart [propsGrafico]="[{nome: 'Ativo Circulante', valor: ativoCirculanteB2},
           {nome: 'Estoque', valor: estoqueB2},
           {nome: 'Passivo Circulante', valor: passivoCirculanteTotalB2}]">
-      </app-grafico2>
-        <hr class="hr-class">
-        <p>
-          <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Estoque: {{ estoqueB2 | number: "1.2-2" }}</i>
-        </p>
-        <p>
-          <i>Passivo Circulante:
-            {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
-        </p>
-        <h3 [ngClass]="liquidezSecaB2 >= 1 ? 'text-green' : 'text-red'">
-          {{ liquidezSecaB2 | number: "1.2-2" }}
-        </h3>
-        <p *ngIf="liquidezSecaB2 > 1" class="text-green">
-          A empresa consegue pagar mais de 100% das suas dívidas de curto
-          prazo sem depender dos seus estoques.
-        </p>
-        <p *ngIf="liquidezSecaB2 < 1" class="text-red">
-          A empresa consegue pagar apenas
-          {{ liquidezSecaB2 * 100 | number: "1.2-2" }}% das suas dívidas de
-          curto prazo sem depender dos seus estoques.
-        </p>
-      </div>
+      </app-bar-chart>
+      <hr class="hr-class">
+      <p>
+        <i>Ativo Circulante: {{ ativoCirculanteB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Estoque: {{ estoqueB2 | number: "1.2-2" }}</i>
+      </p>
+      <p>
+        <i>Passivo Circulante:
+          {{ passivoCirculanteTotalB2 | number: "1.2-2" }}</i>
+      </p>
+      <h3 [ngClass]="liquidezSecaB2 >= 1 ? 'text-green' : 'text-red'">
+        {{ liquidezSecaB2 | number: "1.2-2" }}
+      </h3>
+      <p *ngIf="liquidezSecaB2 > 1" class="text-green">
+        A empresa consegue pagar mais de 100% das suas dívidas de curto
+        prazo sem depender dos seus estoques.
+      </p>
+      <p *ngIf="liquidezSecaB2 < 1" class="text-red">
+        A empresa consegue pagar apenas
+        {{ liquidezSecaB2 * 100 | number: "1.2-2" }}% das suas dívidas de
+        curto prazo sem depender dos seus estoques.
+      </p>
     </div>
   </div>
+</div>

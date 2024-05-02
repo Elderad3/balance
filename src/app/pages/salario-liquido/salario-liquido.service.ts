@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Salario, Verba } from "src/app/shared/models/rescisao.model";
-import { RescisaoService } from "../rescisao/rescisao.service";
+import { CalculoTrabalhistaService } from "../rescisao/rescisao.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class SalarioLiquidoService extends RescisaoService {
+export class SalarioLiquidoService extends CalculoTrabalhistaService {
 
     salario(salario: Salario): Verba[] {
         let inss: Verba = this.inss(salario.valor)

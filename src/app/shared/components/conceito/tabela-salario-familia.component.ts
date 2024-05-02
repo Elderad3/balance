@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RescisaoService } from 'src/app/pages/rescisao/rescisao.service';
+import { CalculoTrabalhistaService } from 'src/app/pages/rescisao/rescisao.service';
 @Component({
   selector: 'app-tabela-salario-familia',
   templateUrl: './tabela-salario-familia.component.html'
@@ -8,11 +8,11 @@ import { RescisaoService } from 'src/app/pages/rescisao/rescisao.service';
 export class TabelaSalarioFamiliaComponent implements OnInit {
 
   faixasSalarioFamilia: any
-  constructor(private rescisaoService: RescisaoService) { }
+  constructor(private calculoTrabalhistaService: CalculoTrabalhistaService) { }
 
 
   ngOnInit() {
-    this.faixasSalarioFamilia = this.rescisaoService.faixaSalarioFamilia()
+    this.faixasSalarioFamilia = this.calculoTrabalhistaService.faixaSalarioFamilia()
 
   }
 
