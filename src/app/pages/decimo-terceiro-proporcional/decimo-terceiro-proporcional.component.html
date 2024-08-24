@@ -4,7 +4,7 @@
     <div class="col-md-9">
       <div class="box box-primary">
         <!-- <div class="box-header">
-          <h3 class="box-title">Salário Líquido</h3>
+          <h3 class="box-title">Calcular Décimo terceiro</h3>
         </div> -->
         <div class="form-horizontal">
           <div class="box-body">
@@ -16,15 +16,26 @@
                       <label class="col-sm-5"> Valor do Salário Bruto: </label>
                       <div class="col-sm-5">
                         <input class="form-control input-sm" currencyMask [options]="{allowNegative: false }"
-                          name="valor" [(ngModel)]="salario.valor" #valor="ngModel" required style="text-align: right;">
+                          name="valor" [(ngModel)]="dados.valor" #valor="ngModel" required style="text-align: right;">
                         <span *ngIf="valor.invalid && (valor.dirty || valor.touched)" class="text-red">Informe um
                           valor</span>
                       </div>
                     </div>
                     <div class="form-group">
+                      <label class="col-sm-5"> Data Fim: </label>
+                      <div class="col-sm-5">
+                        <input class="form-control input-sm" type="date" name="dataFim" [(ngModel)]="dados.dataFim"
+                          required max="9999-12-31" #dataFim="ngModel" style="text-align: right;">
+                        <div *ngIf="dataFim.invalid && (dataFim.dirty || dataFim.touched)" class="text-red">
+                          <span *ngIf="dataFim.errors['incorrect']">Data inválida.</span>
+                          <span *ngIf="dataFim.errors['required']">Campo requerido</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label class="col-sm-5"> Número de dependentes: </label>
                       <div class="col-sm-5">
-                        <input class="form-control input-sm" type="text" name="filhos" [(ngModel)]="salario.filhos"
+                        <input class="form-control input-sm" type="text" name="filhos" [(ngModel)]="dados.filhos"
                           #filho="ngModel" required minlength="0" maxlength="2" pattern="[0-9]+$"
                           style="text-align: right;">
                         <span *ngIf="filho.invalid && (filho.dirty || filho.touched)" class="text-red">Valor
@@ -88,8 +99,7 @@
           </ul>
         </div>
       </div>
-      <app-sal-liquido-conceito></app-sal-liquido-conceito>
-
+      <app-decimo-terceiro-proporcional-conceito></app-decimo-terceiro-proporcional-conceito>
     </div>
     <div class="col-md-3">
       <app-menu-lateral></app-menu-lateral>

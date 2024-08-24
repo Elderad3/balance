@@ -4,7 +4,7 @@
     <div class="col-md-9">
       <div class="box box-primary">
         <!-- <div class="box-header">
-          <h3 class="box-title">Salário Líquido</h3>
+          <h3 class="box-title">Calcular Décimo terceiro</h3>
         </div> -->
         <div class="form-horizontal">
           <div class="box-body">
@@ -82,14 +82,18 @@
               </a>
             </li>
             <li><a><i class="fa fa-circle-o text-light-blue">
-                </i><b>Líquido a Receber: {{totalVantagens - totalDescontos | number: "1.2-2"}}</b>
+                </i><b>Líquido a Receber: {{totalVantagens - totalDescontos | number: "1.2-2"}}</b><br>
+                <p><span>Primeira parcela: Metade do total de vantagens (=) {{totalVantagens/2 | number:
+                    "1.2-2"}} | </span><span>Segunda parcela: Total de vantagens (-) adiantamento da 1° parcela (-)
+                    descontos (=)
+                    {{totalVantagens/2 -
+                    totalDescontos | number: "1.2-2"}}</span></p>
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <app-sal-liquido-conceito></app-sal-liquido-conceito>
-
+      <app-decimo-terceiro-conceito></app-decimo-terceiro-conceito>
     </div>
     <div class="col-md-3">
       <app-menu-lateral></app-menu-lateral>

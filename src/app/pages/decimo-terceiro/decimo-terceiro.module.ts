@@ -1,12 +1,14 @@
 import { FormsModule } from '@angular/forms';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
-import { TaxaEfetivaRoutingModule } from './taxa-efetiva.rounting.module';
+import { DecimoTerceiroRoutingModule } from './decimo-terceiro.rounting.module';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../../core/core.module';
 import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaxaEfetivaComponent } from './taxa-efetiva.component';
+import { DecimoTerceiroComponent } from './decimo-terceiro.component';
+import { ConceitoDecimoTerceiroComponent } from './conceito/conc-decimo-terceiro.component';
+
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
   allowNegative: true,
@@ -19,10 +21,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 @NgModule({
-  declarations: [TaxaEfetivaComponent],
-  imports: [
-    CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, TaxaEfetivaRoutingModule
-  ],
+  declarations: [DecimoTerceiroComponent, ConceitoDecimoTerceiroComponent],
+  imports: [CommonModule, SharedModule, CoreModule, FormsModule, CurrencyMaskModule, RouterModule, DecimoTerceiroRoutingModule],
+  exports: [],
   providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },]
 })
-export class TaxaEfetivaModule { }
+export class DecimoTerceiroModule { }

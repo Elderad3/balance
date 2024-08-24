@@ -16,7 +16,8 @@ const ROTAS: Routes = [
   { path: 'calculo-salario-liquido', loadChildren: () => import('./pages/salario-liquido/salario-liquido.module').then(m => m.SalarioLiquidoModule) },
   { path: 'calcular-ferias', loadChildren: () => import('./pages/ferias/ferias.module').then(m => m.FeriasModule) },
   { path: 'calculadora-de-porcentagem', loadChildren: () => import('./pages/porcentagem/porcentagem.module').then(m => m.PorcentagemModule) },
-  { path: 'calculadora-de-taxa-de-juros', loadChildren: () => import('./pages/taxa-efetiva/taxa-efetiva.module').then(m => m.TaxaEfetivaModule) },
+  { path: 'calcular-decimo-terceiro', loadChildren: () => import('./pages/decimo-terceiro/decimo-terceiro.module').then(m => m.DecimoTerceiroModule) },
+  { path: 'calcular-decimo-terceiro-proporcional', loadChildren: () => import('./pages/decimo-terceiro-proporcional/decimo-terceiro-proporcional.module').then(m => m.DecimoTerceiroProporcionalModule) },
 
   { path: 'termos-de-uso', loadChildren: () => import('./pages/termos-de-uso/termos-de-uso.module').then(m => m.TermosDeUsoModule) },
   { path: 'politica-de-privacidade', loadChildren: () => import('./pages/politica-de-privacidade/politica-de-privacidade.module').then(m => m.PoliticaDePrivacidadeModule) },

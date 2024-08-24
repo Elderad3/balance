@@ -2,13 +2,13 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TaxaEfetivaComponent } from './taxa-efetiva.component';
+import { DecimoTerceiroComponent } from './decimo-terceiro.component';
 
 const routes: Routes = [
-  { path: '', component: TaxaEfetivaComponent }];
+  { path: '', component: DecimoTerceiroComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TaxaEfetivaRoutingModule { }
+export class DecimoTerceiroRoutingModule { }
